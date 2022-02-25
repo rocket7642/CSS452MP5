@@ -8,14 +8,19 @@ class MyGame extends engine.Scene {
 
         // The camera to view the scene
         this.mCamera = null;
+        this.mCameraPlayer = null;
+        this.mCPActive = true;
+        this.mCameraDye1 = null;
+        this.mCD1Active = false;
+        this.mCameraDye2 = null;
+        this.mCD2Active = false;
+        this.mCameraDye3 = null;
+        this.mCD3Active = false;
 
+        this.background = null;
+        this.dye = null;
         this.mMsg = null;
-    
-        this.mLineSet = [];
-        this.mCurrentLine = null;
-        this.mP1 = null;
 
-        this.mShowLine = true;
     }
         
     init() {
@@ -23,9 +28,38 @@ class MyGame extends engine.Scene {
         this.mCamera = new engine.Camera(
             vec2.fromValues(30, 27.5), // position of the camera
             100,                       // width of camera
-            [0, 0, 640, 480]           // viewport (orgX, orgY, width, height)
+            [0, 0, 800, 600]           // viewport (orgX, orgY, width, height)
         );
         this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+
+        this.mCameraPlayer = new engine.Camera(
+            vec2.fromValues(30, 27.5), // position of the camera
+            100,                       // width of camera
+            [0, 600, 200, 200]           // viewport (orgX, orgY, width, height)
+        );
+        this.mCameraPlayer.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+
+        this.mCameraDye1 = new engine.Camera(
+            vec2.fromValues(30, 27.5), // position of the camera
+            100,                       // width of camera
+            [200, 600, 200, 200]           // viewport (orgX, orgY, width, height)
+        );
+        this.mCameraDye1.setBackgroundColor([1, 0.8, 0.8, 1]);
+
+        this.mCameraDye2 = new engine.Camera(
+            vec2.fromValues(30, 27.5), // position of the camera
+            100,                       // width of camera
+            [400, 600, 200, 200]           // viewport (orgX, orgY, width, height)
+        );
+        this.mCameraDye2.setBackgroundColor([0.8, 1, 0.8, 1]);
+
+        this.mCameraDye3 = new engine.Camera(
+            vec2.fromValues(30, 27.5), // position of the camera
+            100,                       // width of camera
+            [600, 600, 200, 200]           // viewport (orgX, orgY, width, height)
+        );
+        this.mCameraDye3.setBackgroundColor([0.8, 0.8, 1, 1]);
+
                 // sets the background to gray
     
         this.mMsg = new engine.FontRenderable("Status Message");
@@ -41,69 +75,43 @@ class MyGame extends engine.Scene {
         engine.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
     
         this.mCamera.setViewAndCameraMatrix();
-        let i, l;
-        for (i = 0; i < this.mLineSet.length; i++) {
-            l = this.mLineSet[i];
-            l.draw(this.mCamera);
-        }
+
         this.mMsg.draw(this.mCamera);   // only draw status in the main camera
+
+        if(this.mCPActive){
+            this.mCameraPlayer.setViewAndCameraMatrix();
+        }
+        if(this.mCD1Active){
+            this.mCameraDye1.setViewAndCameraMatrix();
+        }
+        if(this.mCD2Active){
+            this.mCameraDye2.setViewAndCameraMatrix();
+        }
+        if(this.mCD3Active){
+            this.mCameraDye3.setViewAndCameraMatrix();
+        }
     }
     
     // The Update function, updates the application state. Make sure to _NOT_ draw
     // anything from this function!
     update () {
-        let msg = "Lines: " + this.mLineSet.length + " ";
-        let echo = "";
-        let x, y;
-        
-        // show line or point
-        if  (engine.input.isKeyClicked(engine.input.keys.P)) {
-            this.mShowLine = !this.mShowLine;
-            let line = null;
-            if (this.mCurrentLine !== null)
-                line = this.mCurrentLine;
-            else {
-                if (this.mLineSet.length > 0)
-                    line = this.mLineSet[this.mLineSet.length-1];
-            }
-            if (line !== null)
-                line.setShowLine(this.mShowLine);
+        //console.log("fucker");
+        if(engine.input.isKeyClicked(engine.input.keys.Zero)){
+            this.mCPActive = !this.mCPActive;
+            console.log(this.mCPActive);
         }
-    
-        if (engine.input.isButtonPressed(engine.input.eMouseButton.eMiddle)) {
-            let len = this.mLineSet.length;
-            if (len > 0) {
-                this.mCurrentLine = this.mLineSet[len - 1];
-                x = this.mCamera.mouseWCX();
-                y = this.mCamera.mouseWCY();
-                echo += "Selected " + len + " ";
-                echo += "[" + x.toPrecision(2) + " " + y.toPrecision(2) + "]";
-                this.mCurrentLine.setFirstVertex(x, y);
-            }
+        if(engine.input.isKeyClicked(engine.input.keys.One)){
+            this.mCD1Active = !this.mCD1Active;
+            console.log(this.mCD1Active);
         }
-    
-        if (engine.input.isButtonPressed(engine.input.eMouseButton.eLeft)) {
-            x = this.mCamera.mouseWCX();
-            y = this.mCamera.mouseWCY();
-            echo += "[" + x.toPrecision(2) + " " + y.toPrecision(2) + "]";
-    
-            if (this.mCurrentLine === null) { // start a new one
-                this.mCurrentLine = new engine.LineRenderable();
-                this.mCurrentLine.setFirstVertex(x, y);
-                this.mCurrentLine.setPointSize(5.0);
-                this.mCurrentLine.setShowLine(this.mShowLine);
-                this.mLineSet.push(this.mCurrentLine);
-            } else {
-                this.mCurrentLine.setSecondVertex(x, y);
-            }
-        } else {
-            this.mCurrentLine = null;
-            this.mP1 = null;
+        if(engine.input.isKeyClicked(engine.input.keys.Two)){
+            this.mCD2Active = !this.mCD2Active;
+            console.log(this.mCD2Active);
         }
-    
-        msg += echo;
-        msg += " Show:" + (this.mShowLine ? "Ln" : "Pt");
-        this.mMsg.setText(msg);
+        if(engine.input.isKeyClicked(engine.input.keys.Three)){
+            this.mCD3Active = !this.mCD3Active;
+            console.log(this.mCD3Active);
+        }
     }
 }
 
