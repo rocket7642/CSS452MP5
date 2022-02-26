@@ -28,7 +28,6 @@ class Hero extends engine.GameObject {
     );
 
     this.shotText = projTexture;
-
     this.shotSet = new engine.GameObjectSet();
   }
 
@@ -48,8 +47,7 @@ class Hero extends engine.GameObject {
       this.spawnProj();
     }
     if (engine.input.isKeyClicked(engine.input.keys.Q)) {
-      this.ocelY.reStart();
-      this.ocelX.reStart();
+      this.triggerShake();
     }
     if (!this.ocelX.done() && !this.ocelY.done()) {
       this.mRenderComponent.getXform().incHeightBy(this.ocelX.getNext());
@@ -57,6 +55,7 @@ class Hero extends engine.GameObject {
     } else {
       this.mRenderComponent.getXform().setSize(9, 12);
     }
+    
     this.shotSet.update();
     this.destroyShots();
     // console.log(xform.getXPos() + " " + xform.getYPos());

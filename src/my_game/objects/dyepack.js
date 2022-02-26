@@ -15,19 +15,87 @@ class DyePack extends engine.GameObject {
     this.dyePack.setElementPixelPositions(509, 595, 23, 153);
     this.dyePack.getXform().setRotationInDegree(90);
     this.dyePack.setColor([1, 1, 1, 0]);
+    this.box = new engine.BoundingBox(
+      this.dyePack.getXform().getPosition(),
+      2,
+      3.25
+    );
+    this.speed = unitPerSec / fps;
+    this.lifeSpan = 5;
+
+    this.ocelX = null;
+    this.ocelX1 = null;
 
     this.oscillate = false;
     this.destroyable = false;
-    this.speed = unitPerSec / fps;
-    this.lifeSpan = 5;
-    this.position = null;
-    this.oscillatePos = [];
+
+    this.hitEvent = false;
+    this.slowDownEvent = false;
   }
 
   update(mCamera) {
     let xform = this.dyePack.getXform();
     this.checkDestroyable();
+    this.checkHitEvent();
+    this.checkSlowDownEvent();
+    this.getUserInput();
     xform.incXPosBy(this.speed);
+  }
+
+  draw(mCamera) {
+    this.dyePack.draw(mCamera);
+  }
+
+  getUserInput() {
+    if (engine.input.isKeyPressed(engine.input.keys.D)) {
+      this.speed -= 0.1;
+    }
+
+    if (engine.input.isKeyClicked(engine.input.keys.S)) {
+      this.hitEvent = true;
+    }
+  }
+
+  collideCheck(collider) {
+    // If intersects a patrol
+    if (this.box.intersectsBound(collider)) {
+      this.slowDownEvent = true;
+    }
+
+    if (this.dyePack.pixelTouches(collider, 0)) {
+      this.hitEvent = true;
+    }
+  }
+
+  checkSlowDownEvent() {
+    if (this.slowDownEvent) {
+      this.speed -= 0.1;
+    }
+  }
+
+  checkHitEvent() {
+    if (this.hitEvent) {
+      this.hitEvent = false;
+      this.oscillateDyePack();
+    }
+
+    if (this.oscillate) {
+      if (!this.ocelX.done() && !this.ocelX1.done()) {
+        this.dyePack.getXform().incHeightBy(this.ocelX.getNext());
+        this.dyePack.getXform().incWidthBy(this.ocelX1.getNext());
+      } else {
+        this.dyePack.getXform().setSize(2, 3.25);
+        this.oscillate = false;
+        this.ocelX = null;
+        this.ocelX1 = null;
+      }
+    }
+  }
+
+  oscillateDyePack() {
+    this.oscillate = true;
+    this.ocelX = new engine.Oscillate(4, 20, 300);
+    this.ocelX1 = new engine.Oscillate(0.2, 20, 300);
   }
 
   checkDestroyable() {
@@ -35,7 +103,11 @@ class DyePack extends engine.GameObject {
     if (this.lifeSpan <= 0) {
       this.destroyable = true;
     }
-    this.lifeSpan -= 2 / fps;
+    this.lifeSpan -= 0.0166;
+
+    if (this.speed <= 0) {
+      this.destroyable = true;
+    }
 
     if (
       xform.getXPos() > 100 ||
@@ -45,13 +117,6 @@ class DyePack extends engine.GameObject {
     ) {
       this.destroyable = true;
     }
-
-    console.log(this.destroyable);
-  }
-
-  draw(mCamera) {
-    this.dyePack.draw(mCamera);
-    // console.log(this.dyePack.getXform().getPosition());
   }
 
   isDestroyable() {
