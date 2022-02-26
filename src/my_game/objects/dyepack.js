@@ -29,7 +29,11 @@ class DyePack extends engine.GameObject {
       this.destroyable = true;
     }
     this.lifeSpan -= 1 / fps;
-    xform.incXPosBy(this.speed);
+    // xform.incXPosBy(this.speed);
+  }
+
+  draw(mCamera) {
+    this.dyePack.draw(mCamera);
   }
 }
 
