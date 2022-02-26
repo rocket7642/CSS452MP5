@@ -26,16 +26,36 @@ class DyePack extends engine.GameObject {
 
   update(mCamera) {
     let xform = this.dyePack.getXform();
+    this.checkDestroyable();
+    xform.incXPosBy(this.speed);
+  }
+
+  checkDestroyable() {
+    let xform = this.dyePack.getXform();
     if (this.lifeSpan <= 0) {
       this.destroyable = true;
     }
-    this.lifeSpan -= 1 / fps;
-    xform.incXPosBy(this.speed);
+    this.lifeSpan -= 2 / fps;
+
+    if (
+      xform.getXPos() > 100 ||
+      xform.getYPos() < -100 ||
+      xform.getYPos() > 75 ||
+      xform.getYPos() > 75
+    ) {
+      this.destroyable = true;
+    }
+
+    console.log(this.destroyable);
   }
 
   draw(mCamera) {
     this.dyePack.draw(mCamera);
     // console.log(this.dyePack.getXform().getPosition());
+  }
+
+  isDestroyable() {
+    return this.destroyable;
   }
 }
 

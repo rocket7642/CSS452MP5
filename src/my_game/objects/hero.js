@@ -58,6 +58,7 @@ class Hero extends engine.GameObject {
       this.mRenderComponent.getXform().setSize(9, 12);
     }
     this.shotSet.update();
+    this.destroyShots();
     // console.log(xform.getXPos() + " " + xform.getYPos());
   }
 
@@ -84,6 +85,14 @@ class Hero extends engine.GameObject {
   collideCheck(collider) {
     if (this.box.intersectsBound(collider)) {
       triggerShake();
+    }
+  }
+
+  destroyShots() {
+    for (let i = 0; i < this.shotSet.size(); i++) {
+      if (this.shotSet.getObjectAt(i).isDestroyable()) {
+        this.shotSet.removeFromSet(this.shotSet.getObjectAt(i));
+      }
     }
   }
 }
