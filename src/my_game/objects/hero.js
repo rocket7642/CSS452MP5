@@ -58,7 +58,7 @@ class Hero extends engine.GameObject {
     
     this.shotSet.update();
     this.destroyShots();
-    // console.log(xform.getXPos() + " " + xform.getYPos());
+    //console.log("hero at " + xform.getXPos() + " " + xform.getYPos());
   }
 
   draw(aCamera) {

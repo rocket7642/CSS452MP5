@@ -19,18 +19,15 @@ class EnemyWing extends engine.GameObject{
         this.mRenderComponent.getXform().setPosition(xPos, yPos);
         this.mRenderComponent.getXform().setSize(10, 8);
         this.setAnimation(0);
-        this.interpolate = new engine.LerpVec2(vec2.fromValues(0, 0), 0.05, 120);
         
-
-
-        this.destinationX = 0;
-        this.destinationY = 0;
-        this.interpolate.setFinal(vec2.fromValues(this.destinationX, this.destinationY));
+        this.interpolate = new engine.LerpVec2(vec2.fromValues(xPos, yPos), 0.05, 120);
         this.interpolate.config(0.05, 120);
-    }
 
-    init() {
+        console.log("wing at " + this.mRenderComponent.getXform().getXPos() + " " + this.mRenderComponent.getXform().getYPos());
 
+        this.setDestination(xPos, yPos)
+        //'this.interpolate.setFinal(vec2.fromValues(this.destinationX, this.destinationY));
+        
     }
 
     update() {

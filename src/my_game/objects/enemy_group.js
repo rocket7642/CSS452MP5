@@ -8,8 +8,8 @@ class EnemyGroup extends engine.GameObjectSet{
     constructor(spriteTexture, xPos, yPos) {
         super(null);
         this.head = new EnemyHead(spriteTexture, xPos, yPos);
-        this.topWing = new EnemyWing(spriteTexture, xPos, yPos);
-        this.bottomWing = new EnemyWing(spriteTexture, xPos, yPos);
+        this.topWing = new EnemyWing(spriteTexture, xPos + 10, yPos + 6);
+        this.bottomWing = new EnemyWing(spriteTexture, xPos + 10, yPos - 6);
 
         this.addToSet(this.head);
         this.addToSet(this.topWing);

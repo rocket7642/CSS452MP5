@@ -14,10 +14,11 @@ class EnemyManager
 
     spawn()
     {
-        let xSpawn = (Math.random() * (112 - 38) - 75);
-        let ySpawn = (Math.random() * (400 - 201) + 200);
+        let xSpawn = (Math.random() * (200 - 101));
+        let ySpawn = (Math.random() * (112 - 38) - 38);
         let newEnemy = new EnemyGroup(this.spriteTexture, xSpawn, ySpawn);
         this.enemySet.push(newEnemy);
+        console.log("enemy at: " + xSpawn + " " + ySpawn);
     }
 
     draw(camera)
