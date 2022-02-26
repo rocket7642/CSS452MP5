@@ -12,7 +12,7 @@ class DyePack extends engine.GameObject {
     this.dyePack = new engine.SpriteRenderable(texture);
     this.dyePack.getXform().setSize(2, 3.25);
     this.dyePack.getXform().setPosition(pos[0], pos[1]);
-    this.mRenderComponent.setElementPixelPositions(509, 595, 23, 153);
+    this.dyePack.setElementPixelPositions(509, 595, 23, 153);
     this.dyePack.setColor([1, 1, 1, 0]);
 
     this.oscillate = false;

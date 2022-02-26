@@ -33,7 +33,6 @@ class Hero extends engine.GameObject {
   }
 
   update(mCamera) {
-    // control by WASD
     let xform = this.getXform();
     if (mCamera.isMouseInViewport()) {
       this.interpolate.setFinal(
