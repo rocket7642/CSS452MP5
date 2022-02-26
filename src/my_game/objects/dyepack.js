@@ -14,7 +14,14 @@ class DyePack extends engine.GameObject {
     this.dyePack.getXform().setPosition(x, y);
     this.dyePack.setElementPixelPositions(509, 595, 23, 153);
     this.dyePack.getXform().setRotationInDegree(90);
-    this.dyePack.setColor([1, 1, 1, 0]);
+    let num = this.getRandomInt(1, 3);
+    if (num === 1) {
+      this.dyePack.setColor([1, 1, 1, 0]);
+    } else if (num === 2) {
+      this.dyePack.setColor([1, 1, 1, 1]);
+    } else {
+      this.dyePack.setColor([0, 1, 0, 0.8]);
+    }
     this.box = new engine.BoundingBox(
       this.dyePack.getXform().getPosition(),
       2,
@@ -121,6 +128,10 @@ class DyePack extends engine.GameObject {
 
   isDestroyable() {
     return this.destroyable;
+  }
+
+  getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
 
