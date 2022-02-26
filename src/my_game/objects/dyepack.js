@@ -9,12 +9,13 @@ class DyePack {
     this.dyePack = new engine.SpriteRenderable(texture);
     this.dyePack.getXform().setSize(2, 3.25);
     this.dyePack.getXform().setPosition(pos[0], pos[1]);
+    this.dyePack.setColor([1, 1, 1, 0]);
 
     this.oscillate = false;
+    this.destroyable = false;
     this.speed = unitPerSec / fps;
     this.lifeSpan = 5;
     this.position = null;
-    this.destroyable = false;
     this.oscillatePos = [];
   }
 
