@@ -57,6 +57,7 @@ class Hero extends engine.GameObject {
     } else {
       this.mRenderComponent.getXform().setSize(9, 12);
     }
+    console.log(xform.getXPos() + " " + xform.getYPos());
   }
 
   draw(aCamera) {

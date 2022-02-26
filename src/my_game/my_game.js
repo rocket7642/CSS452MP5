@@ -1,6 +1,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 import engine from "../engine/index.js";
+import EnemyManager from "./enemy_manager.js";
 import EnemyGroup from "./objects/enemy_group.js";
 import Hero from "./objects/hero.js";
 
@@ -30,7 +31,7 @@ class MyGame extends engine.Scene {
 
         this.mMsg = null;
 
-        this.testEnemy = null;
+        this.enemyManager = null;
     }
 
     load() {
@@ -91,7 +92,7 @@ class MyGame extends engine.Scene {
         this.background.getXform().setPosition(0,0);
         this.dye = new Hero(this.spriteSheet, this.spriteSheet);
 
-        this.testEnemy = new EnemyGroup(this.spriteSheet);
+        this.enemyManager = new EnemyManager(this.spriteSheet);
 
 
     }
@@ -106,31 +107,31 @@ class MyGame extends engine.Scene {
         this.background.draw(this.mCamera);
         this.mMsg.draw(this.mCamera);   // only draw status in the main camera
         this.dye.draw(this.mCamera);
-        this.testEnemy.draw(this.mCamera);
+        this.enemyManager.draw(this.mCamera);
 
         if(this.mCPActive){
             this.mCameraPlayer.setViewAndCameraMatrix();
             this.background.draw(this.mCameraPlayer);
             this.dye.draw(this.mCameraPlayer);
-            this.testEnemy.draw(this.mCameraPlayer);
+            this.enemyManager.draw(this.mCameraPlayer);
         }
         if(this.mCD1Active){
             this.mCameraDye1.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye1);
             this.dye.draw(this.mCameraDye1);
-            this.testEnemy.draw(this.mCameraDye1);
+            this.enemyManager.draw(this.mCameraDye1);
         }
         if(this.mCD2Active){
             this.mCameraDye2.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye2);
             this.dye.draw(this.mCameraDye2);
-            this.testEnemy.draw(this.mCameraDye2);
+            this.enemyManager.draw(this.mCameraDye2);
         }
         if(this.mCD3Active){
             this.mCameraDye3.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye3);
             this.dye.draw(this.mCameraDye3);
-            this.testEnemy.draw(this.mCameraDye3);
+            this.enemyManager.draw(this.mCameraDye3);
         }
     }
     
@@ -138,7 +139,7 @@ class MyGame extends engine.Scene {
     // anything from this function!
     update () {
         this.dye.update(this.mCamera);
-        this.testEnemy.update();
+        this.enemyManager.update();
 
         this.mCameraPlayer.panTo(this.dye.getXform().getXPos(), this.dye.getXform().getYPos());
         this.mCameraPlayer.update();

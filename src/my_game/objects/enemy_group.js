@@ -5,11 +5,11 @@ import EnemyHead from "./enemy_head.js";
 import EnemyWing from "./enemy_wing.js";
 
 class EnemyGroup extends engine.GameObjectSet{
-    constructor(spriteTexture) {
+    constructor(spriteTexture, xPos, yPos) {
         super(null);
-        this.head = new EnemyHead(spriteTexture);
-        this.topWing = new EnemyWing(spriteTexture);
-        this.bottomWing = new EnemyWing(spriteTexture);
+        this.head = new EnemyHead(spriteTexture, xPos, yPos);
+        this.topWing = new EnemyWing(spriteTexture, xPos, yPos);
+        this.bottomWing = new EnemyWing(spriteTexture, xPos, yPos);
 
         this.addToSet(this.head);
         this.addToSet(this.topWing);
