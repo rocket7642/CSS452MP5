@@ -66,7 +66,7 @@ class Hero extends engine.GameObject {
 
   spawnProj() {
     this.shotSet.addToSet(
-        new DyePack(this.shotText), this.mRenderComponent.getXform().getXPos() + 9, this.mRenderComponent.getXform().getYPos() + 8.5);
+        new DyePack((this.shotText), this.mRenderComponent.getXform().getXPos() + 9, this.mRenderComponent.getXform().getYPos() + 8.5));
   }
 
   triggerShake() {
