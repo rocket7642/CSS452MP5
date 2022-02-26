@@ -28,7 +28,6 @@ class Hero extends engine.GameObject {
     );
 
     this.shotText = projTexture;
-
     this.shotSet = new engine.GameObjectSet();
   }
 
@@ -48,8 +47,7 @@ class Hero extends engine.GameObject {
       this.spawnProj();
     }
     if (engine.input.isKeyClicked(engine.input.keys.Q)) {
-      this.ocelY.reStart();
-      this.ocelX.reStart();
+      this.triggerShake();
     }
     if (!this.ocelX.done() && !this.ocelY.done()) {
       this.mRenderComponent.getXform().incHeightBy(this.ocelX.getNext());
@@ -57,7 +55,10 @@ class Hero extends engine.GameObject {
     } else {
       this.mRenderComponent.getXform().setSize(9, 12);
     }
-    console.log(xform.getXPos() + " " + xform.getYPos());
+    
+    this.shotSet.update();
+    this.destroyShots();
+    // console.log(xform.getXPos() + " " + xform.getYPos());
   }
 
   draw(aCamera) {
@@ -67,7 +68,12 @@ class Hero extends engine.GameObject {
 
   spawnProj() {
     this.shotSet.addToSet(
-        new DyePack((this.shotText), this.mRenderComponent.getXform().getXPos() + 9, this.mRenderComponent.getXform().getYPos() + 8.5));
+      new DyePack(
+        this.shotText,
+        this.mRenderComponent.getXform().getXPos() + 4,
+        this.mRenderComponent.getXform().getYPos() + 3.5
+      )
+    );
   }
 
   triggerShake() {
@@ -78,6 +84,14 @@ class Hero extends engine.GameObject {
   collideCheck(collider) {
     if (this.box.intersectsBound(collider)) {
       triggerShake();
+    }
+  }
+
+  destroyShots() {
+    for (let i = 0; i < this.shotSet.size(); i++) {
+      if (this.shotSet.getObjectAt(i).isDestroyable()) {
+        this.shotSet.removeFromSet(this.shotSet.getObjectAt(i));
+      }
     }
   }
 }
