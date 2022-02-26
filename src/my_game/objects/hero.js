@@ -57,7 +57,8 @@ class Hero extends engine.GameObject {
     } else {
       this.mRenderComponent.getXform().setSize(9, 12);
     }
-    console.log(xform.getXPos() + " " + xform.getYPos());
+    this.shotSet.update();
+    // console.log(xform.getXPos() + " " + xform.getYPos());
   }
 
   draw(aCamera) {
@@ -67,7 +68,12 @@ class Hero extends engine.GameObject {
 
   spawnProj() {
     this.shotSet.addToSet(
-        new DyePack((this.shotText), this.mRenderComponent.getXform().getXPos() + 9, this.mRenderComponent.getXform().getYPos() + 8.5));
+      new DyePack(
+        this.shotText,
+        this.mRenderComponent.getXform().getXPos() + 4,
+        this.mRenderComponent.getXform().getYPos() + 3.5
+      )
+    );
   }
 
   triggerShake() {

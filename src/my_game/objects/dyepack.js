@@ -7,7 +7,7 @@ const fps = 60;
 
 class DyePack extends engine.GameObject {
   // Init with texture and position
-  constructor(texture, pos) {
+  constructor(texture, x, y) {
     super(null);
     this.dyePack = new engine.SpriteRenderable(texture);
     this.dyePack.getXform().setSize(2, 3.25);
@@ -30,12 +30,12 @@ class DyePack extends engine.GameObject {
       this.destroyable = true;
     }
     this.lifeSpan -= 1 / fps;
-    // xform.incXPosBy(this.speed);
+    xform.incXPosBy(this.speed);
   }
 
   draw(mCamera) {
     this.dyePack.draw(mCamera);
-    //console.log(this.dyePack.getXform().getPosition());
+    // console.log(this.dyePack.getXform().getPosition());
   }
 }
 
