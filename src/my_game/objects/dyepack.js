@@ -11,8 +11,9 @@ class DyePack extends engine.GameObject {
     super(null);
     this.dyePack = new engine.SpriteRenderable(texture);
     this.dyePack.getXform().setSize(2, 3.25);
-    this.dyePack.getXform().setPosition(pos[0], pos[1]);
+    this.dyePack.getXform().setPosition(x, y);
     this.dyePack.setElementPixelPositions(509, 595, 23, 153);
+    this.dyePack.getXform().setRotationInDegree(90);
     this.dyePack.setColor([1, 1, 1, 0]);
 
     this.oscillate = false;
@@ -29,7 +30,12 @@ class DyePack extends engine.GameObject {
       this.destroyable = true;
     }
     this.lifeSpan -= 1 / fps;
-    xform.incXPosBy(this.speed);
+    // xform.incXPosBy(this.speed);
+  }
+
+  draw(mCamera) {
+    this.dyePack.draw(mCamera);
+    //console.log(this.dyePack.getXform().getPosition());
   }
 }
 
