@@ -28,10 +28,7 @@ class GameObjectSet {
     }
     
     update() {
-        let i;
-        for (i = 0; i < this.mSet.length; i++) {
-            this.mSet[i].update();
-        }
+        
     }
 
     draw(aCamera) {

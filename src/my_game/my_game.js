@@ -1,12 +1,14 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 import engine from "../engine/index.js";
+import EnemyGroup from "./objects/enemy_group.js";
 import Hero from "./objects/hero.js";
 
 
 class MyGame extends engine.Scene {
     constructor() {
         super();
+        
 
         this.backgroundLoc = "assets/bg.png";
         this.spriteSheet = "assets/SpriteSheet.png";
@@ -25,8 +27,10 @@ class MyGame extends engine.Scene {
         this.background = null;
         this.dyeTexture = null;
         this.dye = null;
+
         this.mMsg = null;
 
+        this.testEnemy = null;
     }
 
     load() {
@@ -54,6 +58,7 @@ class MyGame extends engine.Scene {
             [0, 600, 200, 200]           // viewport (orgX, orgY, width, height)
         );
         this.mCameraPlayer.setBackgroundColor([0.8, 0.8, 0.8, 1]);
+        this.mCameraPlayer.configLerp(1, 1);
 
         this.mCameraDye1 = new engine.Camera(
             vec2.fromValues(0, 0), // position of the camera
@@ -82,9 +87,13 @@ class MyGame extends engine.Scene {
         this.mMsg.setTextHeight(3);
 
         this.background = new engine.TextureRenderable(this.backgroundLoc);
-        this.background.getXform().setSize(200,200);
+        this.background.getXform().setSize(250,250);
         this.background.getXform().setPosition(0,0);
         this.dye = new Hero(this.spriteSheet);
+
+        this.testEnemy = new EnemyGroup(this.spriteSheet);
+
+
     }
     
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -97,26 +106,31 @@ class MyGame extends engine.Scene {
         this.background.draw(this.mCamera);
         this.mMsg.draw(this.mCamera);   // only draw status in the main camera
         this.dye.draw(this.mCamera);
+        this.testEnemy.draw(this.mCamera);
 
         if(this.mCPActive){
             this.mCameraPlayer.setViewAndCameraMatrix();
             this.background.draw(this.mCameraPlayer);
             this.dye.draw(this.mCameraPlayer);
+            this.testEnemy.draw(this.mCameraPlayer);
         }
         if(this.mCD1Active){
             this.mCameraDye1.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye1);
             this.dye.draw(this.mCameraDye1);
+            this.testEnemy.draw(this.mCameraDye1);
         }
         if(this.mCD2Active){
             this.mCameraDye2.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye2);
             this.dye.draw(this.mCameraDye2);
+            this.testEnemy.draw(this.mCameraDye2);
         }
         if(this.mCD3Active){
             this.mCameraDye3.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye3);
             this.dye.draw(this.mCameraDye3);
+            this.testEnemy.draw(this.mCameraDye3);
         }
     }
     
@@ -124,6 +138,7 @@ class MyGame extends engine.Scene {
     // anything from this function!
     update () {
         this.dye.update(this.mCamera);
+        this.testEnemy.update();
 
         this.mCameraPlayer.panTo(this.dye.getXform().getXPos(), this.dye.getXform().getYPos());
         this.mCameraPlayer.update();

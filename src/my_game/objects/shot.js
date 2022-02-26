@@ -4,6 +4,14 @@ import engine from "../engine/index.js";
 
 class Shot {
     constructor(projTexture, x, y) {
+        super(null);
+
+        this.mRenderComponent = new engine.SpriteRenderable(projTexture);
+        this.mRenderComponent.setColor([1, 1, 1, 0]);
+        this.mRenderComponent.getXform().setPosition(0, 0);
+        this.mRenderComponent.getXform().setSize(2, 3.25);
+        this.mRenderComponent.getXform().
+        this.mRenderComponent.setElementPixelPositions(509, 595, 23, 153);
     }
         
     init() {
