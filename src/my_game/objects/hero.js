@@ -1,8 +1,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 import engine from "../../engine/index.js";
-//import { vec2 } from "../../lib/gl-matrix.js";
-//import shot from "../objects/shot";
+import "../objects/dyepack.js";
 
 class Hero extends engine.GameObject {
     constructor(spriteTexture, projTexture) {
@@ -23,6 +22,10 @@ class Hero extends engine.GameObject {
         this.ocelY = new engine.Oscillate(6, 4, 60);
 
         this.box = new engine.BoundingBox(this.mRenderComponent.getXform().getPosition(), 9, 12);
+
+        this.shotText = projTexture;
+
+        this.shotSet = new engine.GameObjectSet();
     }
 
     update(mCamera) {
@@ -50,12 +53,15 @@ class Hero extends engine.GameObject {
         else{
             this.mRenderComponent.getXform().setSize(9,12);
         }
+    }
 
-        
+    draw(aCamera){
+        super.draw(aCamera);
+        this.shotSet.draw(aCamera);
     }
 
     spawnProj(){
-
+        this.shotSet.addToSet(new DyePack(this.shotText), vec2.fromValues(this.mRenderComponent.getXform().getXPos() + 9, this.mRenderComponent.getXform().getXPos() + 8.5));
     }
 
     triggerShake(){
