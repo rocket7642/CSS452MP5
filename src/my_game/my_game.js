@@ -1,6 +1,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 import engine from "../engine/index.js";
+import Hero from "./objects/hero.js";
 
 
 class MyGame extends engine.Scene {
@@ -49,7 +50,7 @@ class MyGame extends engine.Scene {
 
         this.mCameraPlayer = new engine.Camera(
             vec2.fromValues(0, 0), // position of the camera
-            100,                       // width of camera
+            15,                       // width of camera
             [0, 600, 200, 200]           // viewport (orgX, orgY, width, height)
         );
         this.mCameraPlayer.setBackgroundColor([0.8, 0.8, 0.8, 1]);
@@ -83,11 +84,7 @@ class MyGame extends engine.Scene {
         this.background = new engine.TextureRenderable(this.backgroundLoc);
         this.background.getXform().setSize(200,200);
         this.background.getXform().setPosition(0,0);
-        this.dye = new engine.SpriteRenderable(this.spriteSheet);
-        this.dye.setColor([1, 1, 1, 0]);
-        this.dye.getXform().setPosition(0, 0);
-        this.dye.getXform().setSize(9, 12);
-        this.dye.setElementPixelPositions(0, 120, 0, 180);
+        this.dye = new Hero(this.spriteSheet);
     }
     
     // This is the draw function, make sure to setup proper drawing environment, and more
@@ -126,10 +123,10 @@ class MyGame extends engine.Scene {
     // The Update function, updates the application state. Make sure to _NOT_ draw
     // anything from this function!
     update () {
-        if (this.mCamera.isMouseInViewport()) {
-            this.dye.getXform().setXPos(this.mCamera.mouseWCX());
-            this.dye.getXform().setYPos(this.mCamera.mouseWCY());
-        }
+        this.dye.update(this.mCamera);
+
+        this.mCameraPlayer.panTo(this.dye.getXform().getXPos(), this.dye.getXform().getYPos());
+        this.mCameraPlayer.update();
 
         if(engine.input.isKeyClicked(engine.input.keys.Zero)){
             this.mCPActive = !this.mCPActive;
@@ -148,14 +145,7 @@ class MyGame extends engine.Scene {
             console.log(this.mCD3Active);
         }
 
-        if(engine.input.isKeyClicked(engine.input.keys.Space)){
-            this.mCD3Active = !this.mCD3Active;
-            console.log(this.mCD3Active);
-        }
-        if(engine.input.isKeyClicked(engine.input.keys.Q)){
-            this.mCD3Active = !this.mCD3Active;
-            console.log(this.mCD3Active);
-        }
+        
     }
 }
 
