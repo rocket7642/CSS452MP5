@@ -1,8 +1,8 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-import engine from "../engine/index.js";
+import engine from "../../engine/index.js";
 
-class Shot {
+class EnemyGroup {
     constructor() {
     }
         
@@ -20,4 +20,4 @@ class Shot {
     }
 }
 
-export default Shot;
+export default EnemyGroup;

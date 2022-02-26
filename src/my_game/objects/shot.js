@@ -2,8 +2,8 @@
 
 import engine from "../engine/index.js";
 
-class EnemyGroup {
-    constructor() {
+class Shot {
+    constructor(projTexture, x, y) {
     }
         
     init() {
@@ -20,4 +20,4 @@ class EnemyGroup {
     }
 }
 
-export default EnemyGroup;
+export default Shot;
