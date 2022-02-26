@@ -89,7 +89,7 @@ class MyGame extends engine.Scene {
         this.background = new engine.TextureRenderable(this.backgroundLoc);
         this.background.getXform().setSize(250,250);
         this.background.getXform().setPosition(0,0);
-        this.dye = new Hero(this.spriteSheet);
+        this.dye = new Hero(this.spriteSheet, this.spriteSheet);
 
         this.testEnemy = new EnemyGroup(this.spriteSheet);
 

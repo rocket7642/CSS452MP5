@@ -15,15 +15,15 @@ class EnemyGroup extends engine.GameObjectSet{
         this.addToSet(this.topWing);
         this.addToSet(this.bottomWing);
 
-        this.bBox = mSet[0].getBBox();
+        this.bBox = this.mSet[0].getBBox();
 
-        this.minX = bBox;
-        this.maxX = null;
-        this.minY = null;
-        this.maxY = null;
+        this.minX = this.bBox.minX();
+        this.maxX = this.bBox.maxX();
+        this.minY = this.bBox.minY();
+        this.maxY = this.bBox.maxY();
 
         
-        this.box = new engine.BoundingBox(this.mRenderComponent.getXform().getPosition(), 9, 12);
+        this.box = new engine.BoundingBox(vec2.fromValues((this.minX+this.maxX)/2, (this.minY+this.maxY)/2), 9, 12);
     }
         
 
