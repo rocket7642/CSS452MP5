@@ -3,20 +3,20 @@
 import engine from "../../engine/index.js";
 
 class EnemyHead extends engine.GameObject{
-    constructor(spriteTexture) {
+    constructor(spriteTexture, xPos, yPos) {
         super(null);
         //this.interpolate = new engine.LerpVec2(this.mRenderComponent().getPosition(),0.05,120);
         
         this.mRenderComponent = new engine.SpriteRenderable(spriteTexture);
         this.mRenderComponent.setColor([1, 1, 1, 0]);
-        this.mRenderComponent.getXform().setPosition(0, 0);
+        this.mRenderComponent.getXform().setPosition(xPos, yPos);
         this.mRenderComponent.getXform().setSize(7.5, 7.5);
         this.mRenderComponent.setElementPixelPositions(154, 287, 0, 180);
 
         this.interpolate = new engine.LerpVec2(vec2.fromValues(0, 0), 0.05, 120);
         this.interpolate.config(0.05, 120);
 
-        this.setSpeed(Math.floor((Math.random() * (10 - 5) + 5))/60); //randomly generated speed on creation
+        //this.setSpeed(Math.floor((Math.random() * (10 - 5) + 5))/60); //randomly generated speed on creation
     }
 
 
