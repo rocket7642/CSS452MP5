@@ -69,7 +69,6 @@ class EnemyHead extends engine.GameObject {
   }
 
   colliderCheck(collider) {
-    console.log(collider.getSetSize());
     let h = [];
 
     for (let i = 0; i < collider.getSetSize(); i++) {
@@ -78,9 +77,9 @@ class EnemyHead extends engine.GameObject {
         console.log("hit");
       }
     }
-    if (this.box.intersectsBound(collider.getBounds())) {
-      //console.log("collide");
-    }
+    // if (this.box.intersectsBound(collider.getBounds())) {
+    //   //console.log("collide");
+    // }
   }
 
   toRadians(angle) {
