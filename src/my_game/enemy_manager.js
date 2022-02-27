@@ -24,7 +24,7 @@ class EnemyManager
         //console.log(r);
         if((Math.random() * 5) > 4)
         {
-            console.log("Spawning special enemy");
+            //console.log("Spawning special enemy");
             newEnemy = new EnemyGroupSpecial(this.spriteTexture, xSpawn, ySpawn);
         }
         else
@@ -58,6 +58,17 @@ class EnemyManager
             this.enemySet[i].colliderParser(colliderDye);
         }
     }
+
+    getEnemy(index)
+    {
+        return this.enemySet[index];
+    }
+
+    getEnemyCount()
+    {
+        return this.enemySet.length;
+    }
+    
 
 }
 

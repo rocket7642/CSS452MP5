@@ -165,20 +165,32 @@ class MyGame extends engine.Scene {
         this.mCameraPlayer.update();
 
         //camera stuff
+        console.log(this.activeCameraTimes[0] + " " + this.activeCameraTimes[1] + " " + this.activeCameraTimes[2]);1
         for(let i = 0; i < 3; i++)
         {
-            console.log(this.activeCameras[i]);
+            //console.log(this.activeCameras[i]);
             if(this.activeCameras[i])
             {
+                
                 this.activeCameraTimes[i]++;
-                console.log(this.activeCameraTimes[i]);
+                //console.log(this.activeCameraTimes[i]);
                 if(this.activeCameraTimes[i] >= 320)
-                {
-                    this.activeCameraTimes = 0;
+                { 
+                    this.activeCameraTimes[i] = 0;
                     this.activeCameras[i] = false;
                 }
             }   
         }
+
+        for(let i = 0; i < this.dye.shotSet.size(); i++)
+        {
+            for(let j = 0; j < this.enemyManager.getEnemyCount(); j++){
+                // this.dye.shotSet.getObjectAt(i).collideCheck(this.enemyManager.getEnemy(j));
+                if (this.dye.shotSet.getObjectAt(i).pixelTouches(this.enemyManager.getEnemy(j))) {
+                    console.log("Collided");
+                }
+            }
+        }        
         
 
         if(engine.input.isKeyClicked(engine.input.keys.Zero)){

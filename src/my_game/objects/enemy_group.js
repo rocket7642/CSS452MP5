@@ -22,8 +22,24 @@ class EnemyGroup extends engine.GameObjectSet{
         this.minY = this.bBox.minY();
         this.maxY = this.bBox.maxY();
 
+        for(var i = 0; i < this.size(); i++){
+            this.bBox = this.mSet[i].getBBox();
+            if(this.minX > this.bBox.minX()){
+                this.minX = this.bBox.minX();
+            }
+            if(this.maxX < this.bBox.maxX()){
+                this.maxX = this.bBox.maxX();
+            }
+            if(this.minY > this.bBox.minY()){
+                this.minY = this.bBox.minY();
+            }
+            if(this.maxY < this.bBox.maxY()){
+                this.maxY = this.bBox.maxY();
+            }
+        }
+
         
-        this.box = new engine.BoundingBox(vec2.fromValues((this.minX+this.maxX)/2, (this.minY+this.maxY)/2), 9, 12);
+        this.box = new engine.BoundingBox(vec2.fromValues((this.minX+this.maxX)/2, (this.minY+this.maxY)/2), this.maxX-this.minX, this.maxY-this.minY);
     }
         
 
@@ -35,13 +51,33 @@ class EnemyGroup extends engine.GameObjectSet{
     // The Update function, updates the application state. Make sure to _NOT_ draw
     // anything from this function!
     update () {
+        this.bBox = this.mSet[0].getBBox();
+        let i;
+        for(i = 0; i < this.size(); i++){
+            this.bBox = this.mSet[i].getBBox();
+            if(this.minX > this.bBox.minX()){
+                this.minX = this.bBox.minX();
+            }
+            if(this.maxX < this.bBox.maxX()){
+                this.maxX = this.bBox.maxX();
+            }
+            if(this.minY > this.bBox.minY()){
+                this.minY = this.bBox.minY();
+            }
+            if(this.maxY < this.bBox.maxY()){
+                this.maxY = this.bBox.maxY();
+            }
+        }
+
+        this.box = new engine.BoundingBox(vec2.fromValues((this.minX+this.maxX)/2, (this.minY+this.maxY)/2), this.maxX-this.minX, (this.maxY-this.minY)*1.5);
+
         //console.log(this.size());
 
         let xform = this.head.getXform();
         this.topWing.setDestination(xform.getXPos() + 10, xform.getYPos() + 6);
         this.bottomWing.setDestination(xform.getXPos() + 10, xform.getYPos() - 6);
 
-        let i;
+        //let i;
         for (i = 0; i < this.mSet.length; i++) {
             this.mSet[i].update();
         }

@@ -19,7 +19,7 @@ class EnemyHead extends engine.GameObject{
         this.group = group;
         this.setSpeed(((Math.random() * (10 - 5) + 5)/60)); //randomly generated speed on creation
 
-        this.setRotation(Math.random() * 360);
+        this.setRotation(Math.random() * 160 + 90);
         this.rotVal = 0;
 
         this.box = this.getBBox();
@@ -36,8 +36,8 @@ class EnemyHead extends engine.GameObject{
 
     setRotation(angle)
     {
-        let y = Math.sin(angle);
-        let x = Math.cos(angle);
+        let y = Math.sin(this.toRadians(angle));
+        let x = Math.cos(this.toRadians(angle));
         this.setCurrentFrontDir(vec2.fromValues(x, y));
     }
 
@@ -66,6 +66,11 @@ class EnemyHead extends engine.GameObject{
         if (this.box.intersectsBound(collider.getBounds())) {
             console.log("collide");
         }
+    }
+
+    toRadians(angle)
+    {
+        return angle * (Math.PI / 180);
     }
 
 }
