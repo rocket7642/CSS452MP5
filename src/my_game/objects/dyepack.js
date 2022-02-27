@@ -9,21 +9,22 @@ class DyePack extends engine.GameObject {
   // Init with texture and position
   constructor(texture, x, y) {
     super(null);
-    this.dyePack = new engine.SpriteRenderable(texture);
-    this.dyePack.getXform().setSize(2, 3.25);
-    this.dyePack.getXform().setPosition(x, y);
-    this.dyePack.setElementPixelPositions(509, 595, 23, 153);
-    this.dyePack.getXform().setRotationInDegree(90);
+
+    this.mRenderComponent = new engine.SpriteRenderable(texture);
+    this.mRenderComponent.getXform().setSize(2, 3.25);
+    this.mRenderComponent.getXform().setPosition(x, y);
+    this.mRenderComponent.setElementPixelPositions(509, 595, 23, 153);
+    this.mRenderComponent.getXform().setRotationInDegree(90);
     let num = this.getRandomInt(1, 3);
     if (num === 1) {
-      this.dyePack.setColor([1, 1, 1, 0]);
+      this.mRenderComponent.setColor([1, 1, 1, 0]);
     } else if (num === 2) {
-      this.dyePack.setColor([1, 1, 1, 1]);
+      this.mRenderComponent.setColor([1, 1, 1, 1]);
     } else {
-      this.dyePack.setColor([0, 1, 0, 0.8]);
+      this.mRenderComponent.setColor([0, 1, 0, 0.8]);
     }
     this.box = new engine.BoundingBox(
-      this.dyePack.getXform().getPosition(),
+      this.mRenderComponent.getXform().getPosition(),
       2,
       3.25
     );
@@ -41,7 +42,7 @@ class DyePack extends engine.GameObject {
   }
 
   update(mCamera) {
-    let xform = this.dyePack.getXform();
+    let xform = this.mRenderComponent.getXform();
     this.checkDestroyable();
     this.checkHitEvent();
     this.checkSlowDownEvent();
@@ -50,7 +51,7 @@ class DyePack extends engine.GameObject {
   }
 
   draw(mCamera) {
-    this.dyePack.draw(mCamera);
+    this.mRenderComponent.draw(mCamera);
   }
 
   getUserInput() {
@@ -68,12 +69,12 @@ class DyePack extends engine.GameObject {
     if (this.box.intersectsBound(collider)) {
       this.slowDownEvent = true;
     }
-    for(var i = 0; i < collider.size(); i++){
-      if (this.dyePack.pixelTouches(collider.getObjectAt(i), 0)) {
-        this.hitEvent = true;
-        return;
-      }
-    }
+    // for (var i = 0; i < collider.size(); i++) {
+    //   if (this.mRenderComponent.pixelTouches(collider.getObjectAt(i), 0)) {
+    //     this.hitEvent = true;
+    //     return;
+    //   }
+    // }
   }
 
   checkSlowDownEvent() {
@@ -90,10 +91,10 @@ class DyePack extends engine.GameObject {
 
     if (this.oscillate) {
       if (!this.ocelX.done() && !this.ocelX1.done()) {
-        this.dyePack.getXform().incHeightBy(this.ocelX.getNext());
-        this.dyePack.getXform().incWidthBy(this.ocelX1.getNext());
+        this.mRenderComponent.getXform().incHeightBy(this.ocelX.getNext());
+        this.mRenderComponent.getXform().incWidthBy(this.ocelX1.getNext());
       } else {
-        this.dyePack.getXform().setSize(2, 3.25);
+        this.mRenderComponent.getXform().setSize(2, 3.25);
         this.oscillate = false;
         this.ocelX = null;
         this.ocelX1 = null;
@@ -108,7 +109,7 @@ class DyePack extends engine.GameObject {
   }
 
   checkDestroyable() {
-    let xform = this.dyePack.getXform();
+    let xform = this.mRenderComponent.getXform();
     if (this.lifeSpan <= 0) {
       this.destroyable = true;
     }
@@ -134,6 +135,10 @@ class DyePack extends engine.GameObject {
 
   getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  getPack() {
+    return this.mRenderComponent;
   }
 }
 

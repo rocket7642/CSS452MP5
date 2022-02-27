@@ -55,7 +55,7 @@ class Hero extends engine.GameObject {
     } else {
       this.mRenderComponent.getXform().setSize(9, 12);
     }
-    
+
     this.shotSet.update();
     this.destroyShots();
     //console.log("hero at " + xform.getXPos() + " " + xform.getYPos());
@@ -88,27 +88,26 @@ class Hero extends engine.GameObject {
   }
 
   destroyShots() {
-    for (let i = 0; i < this.shotSet.size(); i++) {
-      if (this.shotSet.getObjectAt(i).isDestroyable()) {
-        this.shotSet.removeFromSet(this.shotSet.getObjectAt(i));
-      }
-    }
+    // for (let i = 0; i < this.shotSet.size(); i++) {
+    //   if (this.shotSet.getObjectAt(i).isDestroyable()) {
+    //     this.shotSet.removeFromSet(this.shotSet.getObjectAt(i));
+    //   }
+    // }
   }
 
-  getSetSize(){
+  getSetSize() {
     return this.shotSet.size();
   }
-  getObject(val){ 
+  getObject(val) {
     return this.shotSet.getObjectAt(val);
   }
 
-  getShotSet(){
-      return this.shotSet;
+  getShotSetAtIndex(index) {
+    return this.shotSet.getObjectAt(index);
   }
-  getBounds(){ 
+  getBounds() {
     return this.box;
   }
-
 }
 
 export default Hero;
