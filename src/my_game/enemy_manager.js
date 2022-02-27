@@ -29,7 +29,7 @@ class EnemyManager
         }
     }
 
-    update()
+    update(colliderDye)
     {
         this.framesToNextSpawn--;
         if(this.framesToNextSpawn <= 0)
@@ -41,6 +41,7 @@ class EnemyManager
         for(let i = 0; i < this.enemySet.length; i++)
         {
             this.enemySet[i].update();
+            this.enemySet[i].colliderParser(colliderDye);
         }
     }
 

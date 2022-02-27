@@ -139,7 +139,7 @@ class MyGame extends engine.Scene {
     // anything from this function!
     update () {
         this.dye.update(this.mCamera);
-        this.enemyManager.update();
+        this.enemyManager.update(this.dye);
 
         this.mCameraPlayer.panTo(this.dye.getXform().getXPos(), this.dye.getXform().getYPos());
         this.mCameraPlayer.update();

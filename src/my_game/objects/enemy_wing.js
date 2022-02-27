@@ -73,6 +73,10 @@ class EnemyWing extends engine.GameObject{
         }
     }
 
+    colliderCheck(collider){
+        
+    }
+
 }
 
 export default EnemyWing;

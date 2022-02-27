@@ -94,6 +94,14 @@ class Hero extends engine.GameObject {
       }
     }
   }
+
+  getSetSize(){
+    return this.shotSet.size();
+  }
+  getObject(val){ 
+    return this.shotSet.getObjectAt(val);
+  }
+  
 }
 
 export default Hero;
