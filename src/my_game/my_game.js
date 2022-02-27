@@ -32,6 +32,8 @@ class MyGame extends engine.Scene {
         this.mMsg = null;
 
         this.enemyManager = null;
+
+        this.cameraQueue = [];
     }
 
     load() {
@@ -81,6 +83,10 @@ class MyGame extends engine.Scene {
             [600, 600, 200, 200]           // viewport (orgX, orgY, width, height)
         );
         this.mCameraDye3.setBackgroundColor([0.8, 0.8, 1, 1]);
+
+        this.cameraQueue.push(this.mCameraDye1);
+        this.cameraQueue.push(this.mCameraDye2);
+        this.cameraQueue.push(this.mCameraDye3);
 
         this.mMsg = new engine.FontRenderable("Status Message");
         this.mMsg.setColor([0, 0, 0, 1]);
@@ -163,6 +169,13 @@ class MyGame extends engine.Scene {
         }
 
         
+    }
+
+    getLRUCamera()
+    {
+        let lruCamera = this.cameraQueue.shift();
+        this.cameraQueue.push(lruCamera);
+        return lruCamera;
     }
 }
 
