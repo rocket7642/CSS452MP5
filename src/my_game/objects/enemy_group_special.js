@@ -14,9 +14,6 @@ class EnemyGroupSpecial extends EnemyGroup{
 
 
         this.addToSet(this.middleWing);
-
-
-
     }
         
 
