@@ -82,7 +82,7 @@ class Hero extends engine.GameObject {
   }
 
   collideCheck(collider) {
-    if (this.box.intersectsBound(collider.getHead().getBBox()) && this.ocelX.done() && this.ocelY.done()) {
+    if (this.box.intersectsBound(collider.getBBox()) && this.ocelX.done() && this.ocelY.done()) {
       this.triggerShake();
     }
   }
