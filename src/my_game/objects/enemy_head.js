@@ -20,15 +20,22 @@ class EnemyHead extends engine.GameObject{
         this.setSpeed(((Math.random() * (10 - 5) + 5)/60)); //randomly generated speed on creation
 
         this.setRotation(Math.random() * 160 + 90);
+        //this.setRotation(90);
         this.rotVal = 0;
 
         this.box = this.getBBox();
+
+        this.uninteractiveTimer = 0;
     }
 
 
     
     update(){
         super.update();
+        if(this.uninteractiveTimer >= 0)
+        {
+            this.uninteractiveTimer--;
+        }
         this.box = this.getBBox();   
         //console.log(this.getCurrentFrontDir()[0], this.getCurrentFrontDir()[1]);
         
@@ -43,9 +50,14 @@ class EnemyHead extends engine.GameObject{
 
     horizonalWallCollision()
     {
-        this.setCurrentFrontDir(vec2.fromValues(this.getCurrentFrontDir()[0], -this.getCurrentFrontDir()[1]));
-    }
+        if(this.uninteractiveTimer <= 0)
+        {
+            console.log(this.getCurrentFrontDir()[0] +" " + -this.getCurrentFrontDir()[1]);
+            this.setCurrentFrontDir(vec2.fromValues(this.getCurrentFrontDir()[0], -this.getCurrentFrontDir()[1]));
+            this.uninteractiveTimer = 60;
+        }
 
+    }
     verticalWallCollision()
     {
         this.setCurrentFrontDir(vec2.fromValues(-this.getCurrentFrontDir()[0], this.getCurrentFrontDir()[1]));
