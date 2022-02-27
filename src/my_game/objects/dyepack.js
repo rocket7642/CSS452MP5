@@ -104,9 +104,11 @@ class DyePack extends engine.GameObject {
   }
 
   oscillateDyePack() {
-    this.oscillate = true;
-    this.ocelX = new engine.Oscillate(4, 20, 300);
-    this.ocelX1 = new engine.Oscillate(0.2, 20, 300);
+    if (!this.oscillate) {
+      this.oscillate = true;
+      this.ocelX = new engine.Oscillate(4, 20, 300);
+      this.ocelX1 = new engine.Oscillate(0.2, 20, 300);
+    }
   }
 
   checkDestroyable() {
