@@ -61,6 +61,7 @@ class EnemyManager {
     this.autoSpawning = !this.autoSpawning;
   }
 
+<<<<<<< HEAD
   toggleBBvisible(){
     for (let i = 0; i < this.enemySet.length; i++) {
       this.enemySet[i].toggleDrawBoxes();
@@ -68,7 +69,18 @@ class EnemyManager {
   }
 
   getEnemy(index) {
+=======
+  getEnemyHead(index) {
+>>>>>>> eb6ffe62e4650838f99d641fa58f095f1b83138d
     return this.enemySet[index].getHead();
+  }
+
+  getEnemyTopWing(index) {
+    return this.enemySet[index].getTopWing();
+  }
+
+  getEnemyBottomWing(index) {
+    return this.enemySet[index].getBottomWing();
   }
 
   getEnemyCount() {
