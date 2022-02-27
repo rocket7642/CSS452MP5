@@ -32,7 +32,7 @@ class Hero extends engine.GameObject {
   }
 
   update(mCamera) {
-    let xform = this.getXform();
+    this.box = this.getBBox();
     if (mCamera.isMouseInViewport()) {
       this.interpolate.setFinal(
         vec2.fromValues(mCamera.mouseWCX(), mCamera.mouseWCY())
@@ -101,7 +101,10 @@ class Hero extends engine.GameObject {
   getObject(val){ 
     return this.shotSet.getObjectAt(val);
   }
-  
+  getBounds(){ 
+    return this.box;
+  }
+
 }
 
 export default Hero;

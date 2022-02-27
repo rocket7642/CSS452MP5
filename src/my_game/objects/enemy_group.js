@@ -58,7 +58,7 @@ class EnemyGroup extends engine.GameObjectSet{
 
     }
     
-    colliderParser(collider1, collider2){
+    colliderParser(collider1){
         this.head.colliderCheck(collider1);
     }
 

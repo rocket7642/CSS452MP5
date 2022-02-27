@@ -22,13 +22,14 @@ class EnemyHead extends engine.GameObject{
         this.setRotation(Math.random() * 360);
         this.rotVal = 0;
 
-        
+        this.box = this.getBBox();
     }
 
 
     
     update(){
         super.update();
+        this.box = this.getBBox();   
         //console.log(this.getCurrentFrontDir()[0], this.getCurrentFrontDir()[1]);
         
     }
@@ -59,9 +60,11 @@ class EnemyHead extends engine.GameObject{
         for(var i = 0; i < collider.getSetSize(); i++){
             let h = [];
             if (this.mRenderComponent.pixelTouches(collider.getObject(i), h)) {
-                console.log(collider);
                 onHit();
             }
+        }
+        if (this.box.intersectsBound(collider.getBounds())) {
+            console.log("collide");
         }
     }
 

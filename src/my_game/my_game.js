@@ -142,6 +142,7 @@ class MyGame extends engine.Scene {
         this.enemyManager.update(this.dye);
 
         this.mCameraPlayer.panTo(this.dye.getXform().getXPos(), this.dye.getXform().getYPos());
+        //console.log(this.dye.getXform().getRotationInRad());
         this.mCameraPlayer.update();
 
         if(engine.input.isKeyClicked(engine.input.keys.Zero)){
