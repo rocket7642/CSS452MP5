@@ -37,6 +37,10 @@ class EnemyHead extends engine.GameObject{
             this.uninteractiveTimer--;
         }
         this.box = this.getBBox();   
+
+        if (engine.input.isKeyClicked(engine.input.keys.J)) {
+            this.onHit();
+        }
         //console.log(this.getCurrentFrontDir()[0], this.getCurrentFrontDir()[1]);
         
     }
@@ -54,7 +58,7 @@ class EnemyHead extends engine.GameObject{
         {
             //console.log(this.getCurrentFrontDir()[0] +" " + -this.getCurrentFrontDir()[1]);
             this.setCurrentFrontDir(vec2.fromValues(this.getCurrentFrontDir()[0], -this.getCurrentFrontDir()[1]));
-            this.uninteractiveTimer = 60;
+            this.uninteractiveTimer = 300;
         }
 
     }

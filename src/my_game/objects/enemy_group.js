@@ -53,6 +53,12 @@ class EnemyGroup extends engine.GameObjectSet{
     // anything from this function!
     update () {
         this.bBox = this.mSet[0].getBBox();
+
+        this.minX = this.bBox.minX();
+        this.maxX = this.bBox.maxX();
+        this.minY = this.bBox.minY();
+        this.maxY = this.bBox.maxY();
+
         let i;
         for(i = 0; i < this.size(); i++){
             this.bBox = this.mSet[i].getBBox();
@@ -83,11 +89,12 @@ class EnemyGroup extends engine.GameObjectSet{
             this.mSet[i].update();
         }
         
-        if(this.minX > 100){
-            terminate();
+        if(this.maxX > 100){
+            this.terminate();
         }
 
         if(this.minY + (this.maxY-this.minY)*1.5 > 75 || this.minY < -75){
+            //console.log(this.minY + (this.maxY-this.minY)*1.5, this.minY);
             this.head.horizonalWallCollision();
         }
 
