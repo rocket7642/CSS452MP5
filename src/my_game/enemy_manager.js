@@ -61,6 +61,12 @@ class EnemyManager {
     this.autoSpawning = !this.autoSpawning;
   }
 
+  toggleBBvisible(){
+    for (let i = 0; i < this.enemySet.length; i++) {
+      this.enemySet[i].toggleDrawBoxes();
+    }
+  }
+
   getEnemy(index) {
     return this.enemySet[index].getHead();
   }

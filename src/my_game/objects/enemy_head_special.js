@@ -1,6 +1,7 @@
 "use strict";
 
 import engine from "../../engine/index.js";
+import BoundingBoxVisual from "../bounding_box_visual.js";
 
 class EnemyHeadSpecial extends engine.GameObject {
   constructor(spriteTexture, xPos, yPos, group) {
@@ -26,6 +27,10 @@ class EnemyHeadSpecial extends engine.GameObject {
     this.box = this.getBBox();
 
     this.uninteractiveTimer = 0;
+
+    this.drawBoxes = false;
+    this.boxVisuals = new BoundingBoxVisual();
+    this.boxVisuals.createBBox(this.box.minX, this.box.maxX, this.box.minY, this.box.maxY);
   }
 
   update() {
@@ -35,6 +40,10 @@ class EnemyHeadSpecial extends engine.GameObject {
     }
     this.box = this.getBBox();
     //console.log(this.getCurrentFrontDir()[0], this.getCurrentFrontDir()[1]);
+  }
+
+  updateBox(showVisuals){
+    this.boxVisuals.update(this.box.minX, this.box.maxX, this.box.minY, this.box.maxY. showVisuals);
   }
 
   setRotation(angle) {

@@ -4,6 +4,7 @@ import engine from "../../engine/index.js";
 import EnemyGroup from "./enemy_group.js";
 import EnemyHeadSpecial from "./enemy_head_special.js";
 import EnemyWing from "./enemy_wing.js";
+import BoundingBoxVisual from "../bounding_box_visual.js";
 
 class EnemyGroupSpecial extends EnemyGroup{
     constructor(spriteTexture, xPos, yPos) {
@@ -39,8 +40,13 @@ class EnemyGroupSpecial extends EnemyGroup{
             }
         }
 
+        this.drawBoxes = false;
+        this.boxVisuals = new BoundingBoxVisual();
+        this.boxVisuals.createBBox(this.minX, this.maxX, this.minY, this.maxY);
         
         this.box = new engine.BoundingBox(vec2.fromValues((this.minX+this.maxX)/2, (this.minY+this.maxY)/2), this.maxX-this.minX, this.maxY-this.minY);
+
+        
     }
         
 
@@ -58,7 +64,7 @@ class EnemyGroupSpecial extends EnemyGroup{
         this.maxX = this.bBox.maxX();
         this.minY = this.bBox.minY();
         this.maxY = this.bBox.maxY();
-        
+
         let i;
         for(i = 0; i < this.size(); i++){
             this.bBox = this.mSet[i].getBBox();
@@ -75,8 +81,18 @@ class EnemyGroupSpecial extends EnemyGroup{
                 this.maxY = this.bBox.maxY();
             }
         }
+        
 
         this.box = new engine.BoundingBox(vec2.fromValues((this.minX+this.maxX)/2, (this.minY+this.maxY)/2), this.maxX-this.minX, (this.maxY-this.minY)*1.5);
+
+        if(this.drawBoxes)
+        {
+            this.boxVisuals.update(this.minX, this.maxX, this.minY, this.maxY, this.drawBoxes);
+            for(let i = 0; i < 3; i++)
+            {
+                this.mSet[i].updateBox()
+            }
+        }
         //console.log(this.size());
 
         let xform = this.head.getXform();
@@ -112,6 +128,12 @@ class EnemyGroupSpecial extends EnemyGroup{
         return this.destroy;
     }
     
+    toggleDrawBoxes()
+    {
+        this.drawBoxes = !this.drawBoxes;
+    }
+
+
 
     colliderParser(collider1, collider2){
         this.head.colliderCheck(collider1);

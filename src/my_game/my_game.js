@@ -193,6 +193,7 @@ class MyGame extends engine.Scene {
     //text stuff
     this.numPatrolMsg.setText(this.enemyManager.getEnemyCount() + " Patrols");
     // console.log(this.dye.getSetSize());
+    this.numShotsSpawned = this.dye.getSetSize();
     this.numShotsSpawnedMsg.setText(this.numShotsSpawned + "  Shots");
 
     //camera stuff
@@ -241,6 +242,9 @@ class MyGame extends engine.Scene {
       this.enemyManager.toggleAutoSpawn();
       this.isAutoSpawning = !this.isAutoSpawning;
       this.isAutoSpawnMsg.setText("AutoSpawn: " + this.isAutoSpawning);
+    }
+    if (engine.input.isKeyClicked(engine.input.keys.B)) {
+      this.enemyManager.toggleBBvisible();
     }
   }
 

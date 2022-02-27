@@ -18,26 +18,40 @@ class BoundingBoxVisual
 
   }
 
-  update(){
+  update(minX, maxX, minY, maxY, showLine){
+    this.topLeft = vec2.fromValues(minX, maxY);
+    this.topRight = vec2.fromValues(maxX, maxY);
+    this.bottomLeft = vec2.fromValues(minX, minY);
+    this.bottomRight = vec2.fromValues(maxX, minY);
+
+    this.topLine.setVertices(minX, maxY, maxX, maxY);
+    this.topLine.setShowLine(showLine);
+    this.bottomLine.setVertices(minX, minY, maxX, minY);
+    this.bottomLine.setShowLine(showLine);
+    this.leftLine.setVertices(minX, minY, minX, maxY);
+    this.leftLine.setShowLine(showLine);
+    this.rightLine.setVertices(maxX, minY, maxX, maxY);
+    this.rightLine.setShowLine(showLine);
 
   }
 
-  updateBBox(minX, maxX, minY, maxY)
+  createBBox(minX, maxX, minY, maxY)
   {
     this.topLeft = vec2.fromValues(minX, maxY);
     this.topRight = vec2.fromValues(maxX, maxY);
     this.bottomLeft = vec2.fromValues(minX, minY);
     this.bottomRight = vec2.fromValues(maxX, minY);
 
-    this.topLine = ;
-    this.bottomLine = ;
-    this.leftLine = ;
-    this.rightLine = ;
-
-    this.mCurrentLine.setFirstVertex(x, y);
-    this.mCurrentLine.setFirstVertex(x, y);
-                this.mCurrentLine.setPointSize(5.0);
-                this.mCurrentLine.setShowLine(this.mShowLine);
+    this.topLine = new engine.LineRenderable(minX, maxY, maxX, maxY);
+    this.topLine.setPointSize(5.0);
+    this.bottomLine = new engine.LineRenderable(minX, minY, maxX, minY);
+    this.bottomLine.setPointSize(5.0);
+    this.leftLine = new engine.LineRenderable(minX, minY, minX, maxY);
+    this.leftLine.setPointSize(5.0);
+    this.rightLine = new engine.LineRenderable(maxX, minY, maxX, maxY);
+    this.rightLine.setPointSize(5.0);
+   
+    //this.mCurrentLine.setShowLine(this.mShowLine);
   }
 
 
@@ -49,9 +63,4 @@ class BoundingBoxVisual
   }
 
 }
-
-
-
-
-
-export default BoxBoundingVisual;
+export default BoundingBoxVisual;
