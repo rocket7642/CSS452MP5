@@ -2,7 +2,7 @@
 
 import engine from "../../engine/index.js";
 
-class EnemyHead extends engine.GameObject{
+class EnemyHeadSpecial extends engine.GameObject{
     constructor(spriteTexture, xPos, yPos, group) {
         super(null);
         //this.interpolate = new engine.LerpVec2(this.mRenderComponent().getPosition(),0.05,120);
@@ -11,7 +11,7 @@ class EnemyHead extends engine.GameObject{
         this.mRenderComponent.setColor([1, 1, 1, 0]);
         this.mRenderComponent.getXform().setPosition(xPos, yPos);
         this.mRenderComponent.getXform().setSize(7.5, 7.5);
-        this.mRenderComponent.setElementPixelPositions(154, 287, 0, 180);
+        this.mRenderComponent.setElementPixelPositions(599, 700, 3, 182);
 
         this.interpolate = new engine.LerpVec2(vec2.fromValues(0, 0), 0.05, 120);
         this.interpolate.config(0.05, 120);
@@ -54,7 +54,7 @@ class EnemyHead extends engine.GameObject{
         {
             //console.log(this.getCurrentFrontDir()[0] +" " + -this.getCurrentFrontDir()[1]);
             this.setCurrentFrontDir(vec2.fromValues(this.getCurrentFrontDir()[0], -this.getCurrentFrontDir()[1]));
-            this.uninteractiveTimer = 60;
+            this.uninteractiveTimer = 300;
         }
 
     }
@@ -87,4 +87,4 @@ class EnemyHead extends engine.GameObject{
 
 }
 
-export default EnemyHead;
+export default EnemyHeadSpecial;

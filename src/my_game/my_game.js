@@ -237,7 +237,7 @@ class MyGame extends engine.Scene {
       this.activeCameras[2] = !this.activeCameras[2];
       //console.log(this.mCD3Active);
     }
-    if (engine.input.isKeyClicked(engine.input.keys.A)) {
+    if (engine.input.isKeyClicked(engine.input.keys.P)) {
       this.enemyManager.toggleAutoSpawn();
       this.isAutoSpawning = !this.isAutoSpawning;
       this.isAutoSpawnMsg.setText("AutoSpawn: " + this.isAutoSpawning);
