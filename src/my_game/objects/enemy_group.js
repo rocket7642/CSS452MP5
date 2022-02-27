@@ -87,6 +87,10 @@ class EnemyGroup extends engine.GameObjectSet{
             terminate();
         }
 
+        if(this.minY + (this.maxY-this.minY)*1.5 > 75 || this.minY < -75){
+            this.head.horizonalWallCollision();
+        }
+
     }
 
     terminate()
