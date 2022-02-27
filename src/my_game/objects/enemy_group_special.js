@@ -60,7 +60,10 @@ class EnemyGroupSpecial extends engine.GameObjectSet{
     {
 
     }
-    
+
+    colliderParser(collider1, collider2){
+        this.head.colliderCheck(collider1);
+    }
 
 }
 
