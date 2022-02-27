@@ -68,8 +68,10 @@ class DyePack extends engine.GameObject {
     if (this.box.intersectsBound(collider)) {
       this.slowDownEvent = true;
     }
+
+    let l = [];
     for (var i = 0; i < collider.size(); i++) {
-      if (this.mRenderComponent.pixelTouches(collider.getObjectAt(i), 0)) {
+      if (this.mRenderComponent.pixelTouches(collider.getObjectAt(i), l)) {
         this.hitEvent = true;
         return;
       }
