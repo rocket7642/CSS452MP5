@@ -47,15 +47,15 @@ class EnemyManager {
     for (let i = 0; i < this.enemySet.length; i++) {
       if (this.enemySet[i].checkDestroy()) {
         this.enemySet.splice(i, 1);
+      } else {
+        this.enemySet[i].update();
       }
-      this.enemySet[i].update();
     }
 
     if (engine.input.isKeyClicked(engine.input.keys.C)) {
-        this.spawn();
+      this.spawn();
     }
   }
-
 
   toggleAutoSpawn() {
     this.autoSpawning = !this.autoSpawning;
