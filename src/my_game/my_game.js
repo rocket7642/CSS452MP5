@@ -179,8 +179,8 @@ class MyGame extends engine.Scene {
     this.dye.update(this.mCamera);
     this.enemyManager.update(this.dye);
     for (let i = 0; i < this.enemyManager.getEnemyCount(); i++) {
-      //   this.enemyManager.getEnemy(i).colliderParser(this.dye);
-      //   this.dye.collideCheck(this.enemyManager.getEnemy(i));
+      this.enemyManager.getEnemyGroup(i).colliderParser(this.dye);
+      this.dye.collideCheck(this.enemyManager.getEnemyGroup(i));
     }
 
     this.mCameraPlayer.panTo(
