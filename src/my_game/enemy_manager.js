@@ -52,10 +52,9 @@ class EnemyManager {
     }
 
     if (engine.input.isKeyClicked(engine.input.keys.C)) {
-        this.spawn();
+      this.spawn();
     }
   }
-
 
   toggleAutoSpawn() {
     this.autoSpawning = !this.autoSpawning;
