@@ -179,8 +179,10 @@ class MyGame extends engine.Scene {
     this.dye.update(this.mCamera);
     this.enemyManager.update(this.dye);
     for (let i = 0; i < this.enemyManager.getEnemyCount(); i++) {
-      this.enemyManager.getEnemy(i).colliderCheck(this.dye);
-      this.dye.collideCheck(this.enemyManager.getEnemy(i));
+      this.enemyManager.getEnemyHead(i).colliderCheck(this.dye);
+      this.enemyManager.getEnemyBottomWing(i).colliderCheck(this.dye);
+      this.enemyManager.getEnemyTopWing(i).colliderCheck(this.dye);
+      this.dye.collideCheck(this.enemyManager.getEnemyHead(i));
     }
 
     this.mCameraPlayer.panTo(
@@ -209,17 +211,19 @@ class MyGame extends engine.Scene {
       }
     }
 
-    let l = [];
-    for (let i = 0; i < this.dye.shotSet.size(); i++) {
-      for (let j = 0; j < this.enemyManager.getEnemyCount(); j++) {
-        // this.dye.shotSet.getObjectAt(i).collideCheck(this.enemyManager.getEnemy(j));
-        if (
-          this.dye.getObject(i).pixelTouches(this.enemyManager.getEnemy(j), l)
-        ) {
-          console.log("Collided!!!!!!");
-        }
-      }
-    }
+    // let l = [];
+    // for (let i = 0; i < this.dye.shotSet.size(); i++) {
+    //   for (let j = 0; j < this.enemyManager.getEnemyCount(); j++) {
+    //     // this.dye.shotSet.getObjectAt(i).collideCheck(this.enemyManager.getEnemy(j));
+    //     if (
+    //       this.dye
+    //         .getObject(i)
+    //         .pixelTouches(this.enemyManager.getEnemyHead(j), l)
+    //     ) {
+    //       console.log("Collided!!!!!!");
+    //     }
+    //   }
+    // }
 
     if (engine.input.isKeyClicked(engine.input.keys.Zero)) {
       this.mCPActive = !this.mCPActive;

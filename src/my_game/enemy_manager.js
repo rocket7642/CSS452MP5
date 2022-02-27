@@ -61,8 +61,16 @@ class EnemyManager {
     this.autoSpawning = !this.autoSpawning;
   }
 
-  getEnemy(index) {
+  getEnemyHead(index) {
     return this.enemySet[index].getHead();
+  }
+
+  getEnemyTopWing(index) {
+    return this.enemySet[index].getTopWing();
+  }
+
+  getEnemyBottomWing(index) {
+    return this.enemySet[index].getBottomWing();
   }
 
   getEnemyCount() {
