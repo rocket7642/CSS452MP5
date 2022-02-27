@@ -7,9 +7,9 @@ import EnemyWing from "./enemy_wing.js";
 class EnemyGroup extends engine.GameObjectSet{
     constructor(spriteTexture, xPos, yPos) {
         super(null);
-        this.head = new EnemyHead(spriteTexture, xPos, yPos);
-        this.topWing = new EnemyWing(spriteTexture, xPos + 10, yPos + 6);
-        this.bottomWing = new EnemyWing(spriteTexture, xPos + 10, yPos - 6);
+        this.head = new EnemyHead(spriteTexture, xPos, yPos, this);
+        this.topWing = new EnemyWing(spriteTexture, xPos + 10, yPos + 6, this);
+        this.bottomWing = new EnemyWing(spriteTexture, xPos + 10, yPos - 6, this);
 
         this.addToSet(this.head);
         this.addToSet(this.topWing);
@@ -50,6 +50,11 @@ class EnemyGroup extends engine.GameObjectSet{
             this.mSet[i].getBBox();
             
         }
+
+    }
+
+    terminate()
+    {
 
     }
     

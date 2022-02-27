@@ -3,7 +3,7 @@
 import engine from "../../engine/index.js";
 
 class EnemyWing extends engine.GameObject{
-    constructor(spriteTexture,  xPos, yPos) {
+    constructor(spriteTexture,  xPos, yPos, group) {
         super(null)
         //pixel positions for animations
         this.p =[
@@ -23,9 +23,11 @@ class EnemyWing extends engine.GameObject{
         this.interpolate = new engine.LerpVec2(vec2.fromValues(xPos, yPos), 0.05, 120);
         this.interpolate.config(0.05, 120);
 
-        console.log("wing at " + this.mRenderComponent.getXform().getXPos() + " " + this.mRenderComponent.getXform().getYPos());
+        //console.log("wing at " + this.mRenderComponent.getXform().getXPos() + " " + this.mRenderComponent.getXform().getYPos());
 
         this.setDestination(xPos, yPos)
+
+        this.group = group;
         //'this.interpolate.setFinal(vec2.fromValues(this.destinationX, this.destinationY));
         
     }
@@ -60,6 +62,15 @@ class EnemyWing extends engine.GameObject{
     {
         this.mRenderComponent.setElementPixelPositions(this.p[0][frame], this.p[1][frame], this.p[2][frame], this.p[3][frame]);
 
+    }
+
+    onHit()
+    {
+        this.mRenderComponent.setColor(this.mRenderComponent.getColor()[3] + 0.2);
+        if(this.mRenderComponent.getColor()[3] >= 1)
+        {
+            this.group.onHit();
+        }
     }
 
 }

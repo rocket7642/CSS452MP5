@@ -3,7 +3,7 @@
 import engine from "../../engine/index.js";
 
 class EnemyHead extends engine.GameObject{
-    constructor(spriteTexture, xPos, yPos) {
+    constructor(spriteTexture, xPos, yPos, group) {
         super(null);
         //this.interpolate = new engine.LerpVec2(this.mRenderComponent().getPosition(),0.05,120);
         
@@ -16,7 +16,13 @@ class EnemyHead extends engine.GameObject{
         this.interpolate = new engine.LerpVec2(vec2.fromValues(0, 0), 0.05, 120);
         this.interpolate.config(0.05, 120);
 
-        //this.setSpeed(Math.floor((Math.random() * (10 - 5) + 5))/60); //randomly generated speed on creation
+        this.group = group;
+        this.setSpeed(Math.floor((Math.random() * (10 - 5) + 5))/60); //randomly generated speed on creation
+
+        this.setRotation(Math.random() * 360);
+        this.rotVal = 0;
+
+        
     }
 
 
@@ -25,6 +31,13 @@ class EnemyHead extends engine.GameObject{
         super.update();
         //console.log(this.getCurrentFrontDir()[0], this.getCurrentFrontDir()[1]);
         
+    }
+
+    setRotation(angle)
+    {
+        let y = Math.sin(angle);
+        let x = Math.cos(angle);
+        this.setCurrentFrontDir(vec2.fromValues(x, y));
     }
 
     horizonalWallCollision()
