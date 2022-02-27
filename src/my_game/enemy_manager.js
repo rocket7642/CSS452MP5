@@ -61,20 +61,14 @@ class EnemyManager {
     this.autoSpawning = !this.autoSpawning;
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   toggleBBvisible(){
     for (let i = 0; i < this.enemySet.length; i++) {
       this.enemySet[i].toggleDrawBoxes();
     }
   }
 
-=======
->>>>>>> parent of 008b467 (box visuals except maybe not)
-  getEnemy(index) {
-=======
   getEnemyHead(index) {
->>>>>>> eb6ffe62e4650838f99d641fa58f095f1b83138d
     return this.enemySet[index].getHead();
   }
 
