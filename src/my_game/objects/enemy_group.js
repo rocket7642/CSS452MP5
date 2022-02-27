@@ -3,7 +3,6 @@
 import engine from "../../engine/index.js";
 import EnemyHead from "./enemy_head.js";
 import EnemyWing from "./enemy_wing.js";
-import BoundingBoxVisual from "../bounding_box_visual.js";
 
 class EnemyGroup extends engine.GameObjectSet{
     constructor(spriteTexture, xPos, yPos) {
@@ -40,10 +39,7 @@ class EnemyGroup extends engine.GameObjectSet{
             }
         }
 
-        this.drawBoxes = false;
-        this.boxVisuals = new BoundingBoxVisual();
-        this.boxVisuals.createBBox(this.minX, this.maxX, this.minY, this.maxY);
-
+        
         this.box = new engine.BoundingBox(vec2.fromValues((this.minX+this.maxX)/2, (this.minY+this.maxY)/2), this.maxX-this.minX, this.maxY-this.minY);
     }
         
@@ -82,15 +78,6 @@ class EnemyGroup extends engine.GameObjectSet{
 
         this.box = new engine.BoundingBox(vec2.fromValues((this.minX+this.maxX)/2, (this.minY+this.maxY)/2), this.maxX-this.minX, (this.maxY-this.minY)*1.5);
 
-        if(this.drawBoxes)
-        {
-            this.boxVisuals.update(this.minX, this.maxX, this.minY, this.maxY, this.drawBoxes);
-            for(let i = 0; i < 3; i++)
-            {
-                this.mSet[i].updateBox()
-            }
-        }
-
         //console.log(this.size());
 
         let xform = this.head.getXform();
@@ -119,12 +106,6 @@ class EnemyGroup extends engine.GameObjectSet{
     }
     checkDestroy(){
         return this.destroy;
-    }
-
-    toggleDrawBoxes()
-    {
-        this.drawBoxes = !this.drawBoxes;
-        console.log(this.drawBoxes);
     }
     
     colliderParser(collider1){

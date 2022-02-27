@@ -21,7 +21,7 @@ import * as input from "./input.js";
 import Scene from "./scene.js";
 import Transform from "./utils/transform.js";
 import BoundingBox from "./utils/bounding_box.js";
-import { eBoundCollideStatus } from "./utils/bounding_box.js"; 
+import { eBoundCollideStatus } from "./utils/bounding_box.js";
 import Lerp from "./utils/lerp.js";
 import LerpVec2 from "./utils/lerp_vec2.js";
 import Oscillate from "./utils/oscillate.js";

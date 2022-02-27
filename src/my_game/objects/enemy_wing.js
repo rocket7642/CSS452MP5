@@ -1,7 +1,6 @@
 "use strict"
 
 import engine from "../../engine/index.js";
-import BoundingBoxVisual from "../bounding_box_visual.js";
 
 class EnemyWing extends engine.GameObject{
     constructor(spriteTexture,  xPos, yPos, group) {
@@ -30,12 +29,6 @@ class EnemyWing extends engine.GameObject{
 
         this.group = group;
         //'this.interpolate.setFinal(vec2.fromValues(this.destinationX, this.destinationY));
-
-        this.box = this.getBBox();
-
-        this.drawBoxes = false;
-        this.boxVisuals = new BoundingBoxVisual();
-        this.boxVisuals.createBBox(this.box.minX, this.box.maxX, this.box.minY, this.box.maxY);
         
     }
 
@@ -57,10 +50,6 @@ class EnemyWing extends engine.GameObject{
         //xform.setPosition(this.destinationX, this.destinationY);
         
     }
-
-    updateBox(showVisuals){
-        this.boxVisuals.update(this.box.minX, this.box.maxX, this.box.minY, this.box.maxY. showVisuals);
-      }
 
     setDestination(destX, destY)
     {

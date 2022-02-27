@@ -62,12 +62,15 @@ class EnemyManager {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   toggleBBvisible(){
     for (let i = 0; i < this.enemySet.length; i++) {
       this.enemySet[i].toggleDrawBoxes();
     }
   }
 
+=======
+>>>>>>> parent of 008b467 (box visuals except maybe not)
   getEnemy(index) {
 =======
   getEnemyHead(index) {
