@@ -72,7 +72,7 @@ class EnemyHeadSpecial extends engine.GameObject {
     for (var i = 0; i < collider.getSetSize(); i++) {
       let h = [];
       if (this.pixelTouches(collider.getObject(i), h)) {
-        onHit();
+        this.onHit();
       }
     }
     if (this.box.intersectsBound(collider.getBounds())) {
