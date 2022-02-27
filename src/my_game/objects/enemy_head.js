@@ -49,6 +49,11 @@ class EnemyHead extends engine.GameObject{
     {
         this.setCurrentFrontDir(vec2.fromValues(-this.getCurrentFrontDir()[0], this.getCurrentFrontDir()[1]));
     }
+
+    onHit()
+    {
+        this.mRenderComponent.getXform().incXPosBy(5);
+    }
     
 
 
