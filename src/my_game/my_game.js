@@ -29,7 +29,14 @@ class MyGame extends engine.Scene {
         this.dyeTexture = null;
         this.dye = null;
 
-        this.mMsg = null;
+        this.numPatrolMsg = null;
+        this.numShotsSpawnedMsg = null;
+        this.isAutoSpawnMsg = null;
+
+        this.numShotsSpawned = 0;
+        this.isAutoSpawning = true;
+
+        this.messages = [];
 
         this.enemyManager = null;
 
@@ -99,10 +106,24 @@ class MyGame extends engine.Scene {
         this.cameraActiveQueue.push(this.mCD2Active);
         this.cameraActiveQueue.push(this.mCD3Active);
 
-        this.mMsg = new engine.FontRenderable("Status Message");
-        this.mMsg.setColor([0, 0, 0, 1]);
-        this.mMsg.getXform().setPosition(-50, -50);
-        this.mMsg.setTextHeight(3);
+        this.numPatrolMsg = new engine.FontRenderable("0 Patrols");
+        this.numPatrolMsg.setColor([0, 0, 0, 1]);
+        this.numPatrolMsg.getXform().setPosition(-50, -50);
+        this.numPatrolMsg.setTextHeight(3);
+
+        this.numShotsSpawnedMsg = new engine.FontRenderable("0 Shots");
+        this.numShotsSpawnedMsg.setColor([0, 0, 0, 1]);
+        this.numShotsSpawnedMsg.getXform().setPosition(-50, -55);
+        this.numShotsSpawnedMsg.setTextHeight(3);
+
+        this.isAutoSpawnMsg = new engine.FontRenderable("AutoSpawn: true");
+        this.isAutoSpawnMsg.setColor([0, 0, 0, 1]);
+        this.isAutoSpawnMsg.getXform().setPosition(-50, -60);
+        this.isAutoSpawnMsg.setTextHeight(3);
+
+        this.messages.push(this.numPatrolMsg);
+        this.messages.push(this.numShotsSpawnedMsg);
+        this.messages.push(this.isAutoSpawnMsg);
 
         this.background = new engine.TextureRenderable(this.backgroundLoc);
         this.background.getXform().setSize(250,250);
@@ -122,7 +143,12 @@ class MyGame extends engine.Scene {
     
         this.mCamera.setViewAndCameraMatrix();
         this.background.draw(this.mCamera);
-        this.mMsg.draw(this.mCamera);   // only draw status in the main camera
+        // only draw status in the main camera
+        for(let i = 0; i < this.messages.length; i++)
+        {
+            this.messages[i].draw(this.mCamera);
+        }
+
         this.dye.draw(this.mCamera);
         this.enemyManager.draw(this.mCamera);
 
@@ -157,15 +183,23 @@ class MyGame extends engine.Scene {
     update () {
         this.dye.update(this.mCamera);
         this.enemyManager.update(this.dye);
-
-
+        for(let i = 0; i <  this.enemyManager.getEnemyCount(); i++){
+            this.enemyManager.getEnemy(i).colliderParser(this.dye);
+            this.dye.collideCheck(this.enemyManager.getEnemy(i));
+        }
 
         this.mCameraPlayer.panTo(this.dye.getXform().getXPos(), this.dye.getXform().getYPos());
         //console.log(this.dye.getXform().getRotationInRad());
         this.mCameraPlayer.update();
 
+        //text stuff
+        this.numPatrolMsg.setText(this.enemyManager.getEnemyCount() + " Patrols");
+        console.log(this.dye.getSetSize());
+        this.numShotsSpawnedMsg.setText(this.numShotsSpawned + "  Shots");
+
+
         //camera stuff
-        console.log(this.activeCameraTimes[0] + " " + this.activeCameraTimes[1] + " " + this.activeCameraTimes[2]);1
+        //console.log(this.activeCameraTimes[0] + " " + this.activeCameraTimes[1] + " " + this.activeCameraTimes[2]);
         for(let i = 0; i < 3; i++)
         {
             //console.log(this.activeCameras[i]);
@@ -187,7 +221,7 @@ class MyGame extends engine.Scene {
             for(let j = 0; j < this.enemyManager.getEnemyCount(); j++){
                 // this.dye.shotSet.getObjectAt(i).collideCheck(this.enemyManager.getEnemy(j));
                 if (this.dye.shotSet.getObjectAt(i).pixelTouches(this.enemyManager.getEnemy(j))) {
-                    console.log("Collided");
+                    this.dye.shotSet.getObjectAt(i).collideCheck(this.enemyManager.getEnemy(j));
                 }
             }
         }        
@@ -208,6 +242,11 @@ class MyGame extends engine.Scene {
         if(engine.input.isKeyClicked(engine.input.keys.Three)){
             this.activeCameras[2] = !this.activeCameras[2];
             //console.log(this.mCD3Active);
+        }
+        if(engine.input.isKeyClicked(engine.input.keys.A)){
+            this.enemyManager.toggleAutoSpawn();
+            this.isAutoSpawning = !this.isAutoSpawning;
+            this.isAutoSpawnMsg.setText("AutoSpawn: " + this.isAutoSpawning);
         }
 
         

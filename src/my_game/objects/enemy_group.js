@@ -10,6 +10,7 @@ class EnemyGroup extends engine.GameObjectSet{
         this.head = new EnemyHead(spriteTexture, xPos, yPos, this);
         this.topWing = new EnemyWing(spriteTexture, xPos + 10, yPos + 6, this);
         this.bottomWing = new EnemyWing(spriteTexture, xPos + 10, yPos - 6, this);
+        this.destroy = false;
 
         this.addToSet(this.head);
         this.addToSet(this.topWing);
@@ -81,21 +82,27 @@ class EnemyGroup extends engine.GameObjectSet{
         for (i = 0; i < this.mSet.length; i++) {
             this.mSet[i].update();
         }
-
-        for (i = 0; i < this.mSet.length; i++) {
-            this.mSet[i].getBBox();
-            
+        
+        if(this.minX > 100){
+            terminate();
         }
 
     }
 
     terminate()
     {
-
+        this.destroy = true;
+    }
+    checkDestroy(){
+        return this.destroy;
     }
     
     colliderParser(collider1){
         this.head.colliderCheck(collider1);
+    }
+
+    getHead(){
+        return this.head;
     }
 
 }

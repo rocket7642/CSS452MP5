@@ -64,7 +64,7 @@ class EnemyHead extends engine.GameObject{
             }
         }
         if (this.box.intersectsBound(collider.getBounds())) {
-            console.log("collide");
+            //console.log("collide");
         }
     }
 

@@ -11,6 +11,7 @@ class EnemyManager
         this.framesToNextSpawn = 0;
         this.spriteTexture = spriteTexture;
         this.enemySet = [];
+        this.autoSpawning = true;
 
     }
 
@@ -46,17 +47,27 @@ class EnemyManager
     update(colliderDye)
     {
         this.framesToNextSpawn--;
-        if(this.framesToNextSpawn <= 0)
+        //console.log((this.framesToNextSpawn <= 0 && this.autoSpawning));
+        if(this.framesToNextSpawn <= 0 && this.autoSpawning)
         {
+            //console.log("hello!");
             this.framesToNextSpawn = (Math.random() * (30) + 60);
             this.spawn();
         }
 
         for(let i = 0; i < this.enemySet.length; i++)
         {
+            if(this.enemySet[i].checkDestroy()){
+                enemySet.splice(i,1);
+            }
             this.enemySet[i].update();
-            this.enemySet[i].colliderParser(colliderDye);
+            
         }
+    }
+
+    toggleAutoSpawn()
+    {
+        this.autoSpawning = !this.autoSpawning;
     }
 
     getEnemy(index)
