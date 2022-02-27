@@ -17,7 +17,7 @@ class EnemyHead extends engine.GameObject{
         this.interpolate.config(0.05, 120);
 
         this.group = group;
-        this.setSpeed(Math.floor((Math.random() * (10 - 5) + 5))/60); //randomly generated speed on creation
+        this.setSpeed(((Math.random() * (10 - 5) + 5)/60)); //randomly generated speed on creation
 
         this.setRotation(Math.random() * 360);
         this.rotVal = 0;
