@@ -56,9 +56,6 @@ class EnemyManager {
     this.autoSpawning = !this.autoSpawning;
   }
 
-  getEnemyGroup(index) {
-    return this.enemySet[index];
-  }
   getEnemy(index) {
     return this.enemySet[index].getHead();
   }
