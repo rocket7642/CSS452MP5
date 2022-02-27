@@ -101,6 +101,10 @@ class EnemyGroup extends engine.GameObjectSet {
       //console.log(this.minY + (this.maxY-this.minY)*1.5, this.minY);
       this.head.horizonalWallCollision();
     }
+
+    if (this.topWing.terminate || this.bottomWing.terminate) {
+      this.terminate();
+    }
   }
 
   terminate() {

@@ -26,6 +26,7 @@ class EnemyHead extends engine.GameObject {
     this.box = this.getBBox();
 
     this.uninteractiveTimer = 0;
+    this.terminate = false;
   }
 
   update() {

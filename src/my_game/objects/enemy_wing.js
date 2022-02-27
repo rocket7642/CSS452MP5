@@ -45,6 +45,7 @@ class EnemyWing extends engine.GameObject {
     this.setDestination(xPos, yPos);
 
     this.group = group;
+    this.terminate = false;
     //'this.interpolate.setFinal(vec2.fromValues(this.destinationX, this.destinationY));
   }
 
@@ -90,6 +91,7 @@ class EnemyWing extends engine.GameObject {
     this.mRenderComponent.setColor(col);
     if (this.mRenderComponent.getColor()[3] >= 1) {
       console.log("DIe");
+      this.terminate = true;
     }
   }
 
