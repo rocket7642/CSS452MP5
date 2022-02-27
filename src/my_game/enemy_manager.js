@@ -11,6 +11,7 @@ class EnemyManager
         this.framesToNextSpawn = 0;
         this.spriteTexture = spriteTexture;
         this.enemySet = [];
+
     }
 
     spawn()

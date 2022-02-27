@@ -101,6 +101,10 @@ class Hero extends engine.GameObject {
   getObject(val){ 
     return this.shotSet.getObjectAt(val);
   }
+
+  getShotSet(){
+      return this.shotSet;
+  }
   getBounds(){ 
     return this.box;
   }

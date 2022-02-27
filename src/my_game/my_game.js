@@ -19,11 +19,11 @@ class MyGame extends engine.Scene {
         this.mCameraPlayer = null;
         this.mCPActive = true;
         this.mCameraDye1 = null;
-        this.mCD1Active = false;
+        //this.mCD1Active = false;
         this.mCameraDye2 = null;
-        this.mCD2Active = false;
+        //this.mCD2Active = false;
         this.mCameraDye3 = null;
-        this.mCD3Active = false;
+        //this.mCD3Active = false;
 
         this.background = null;
         this.dyeTexture = null;
@@ -34,6 +34,10 @@ class MyGame extends engine.Scene {
         this.enemyManager = null;
 
         this.cameraQueue = [];
+        this.cameraActiveQueue = [];
+        this.cameraIndexQueue = [0, 1, 2];
+        this.activeCameras = [false, false, false];
+        this.activeCameraTimes = [0, 0, 0];
     }
 
     load() {
@@ -65,28 +69,35 @@ class MyGame extends engine.Scene {
 
         this.mCameraDye1 = new engine.Camera(
             vec2.fromValues(0, 0), // position of the camera
-            100,                       // width of camera
+            6,                       // width of camera
             [200, 600, 200, 200]           // viewport (orgX, orgY, width, height)
         );
         this.mCameraDye1.setBackgroundColor([1, 0.8, 0.8, 1]);
+        this.mCameraDye1.configLerp(1, 1);
 
         this.mCameraDye2 = new engine.Camera(
             vec2.fromValues(0, 0), // position of the camera
-            100,                       // width of camera
+            6,                       // width of camera
             [400, 600, 200, 200]           // viewport (orgX, orgY, width, height)
         );
         this.mCameraDye2.setBackgroundColor([0.8, 1, 0.8, 1]);
+        this.mCameraDye2.configLerp(1, 1);
 
         this.mCameraDye3 = new engine.Camera(
             vec2.fromValues(0, 0), // position of the camera
-            100,                       // width of camera
+            6,                       // width of camera
             [600, 600, 200, 200]           // viewport (orgX, orgY, width, height)
         );
         this.mCameraDye3.setBackgroundColor([0.8, 0.8, 1, 1]);
+        this.mCameraDye3.configLerp(1, 1);
 
         this.cameraQueue.push(this.mCameraDye1);
         this.cameraQueue.push(this.mCameraDye2);
         this.cameraQueue.push(this.mCameraDye3);
+
+        this.cameraActiveQueue.push(this.mCD1Active);
+        this.cameraActiveQueue.push(this.mCD2Active);
+        this.cameraActiveQueue.push(this.mCD3Active);
 
         this.mMsg = new engine.FontRenderable("Status Message");
         this.mMsg.setColor([0, 0, 0, 1]);
@@ -98,7 +109,7 @@ class MyGame extends engine.Scene {
         this.background.getXform().setPosition(0,0);
         this.dye = new Hero(this.spriteSheet, this.spriteSheet);
 
-        this.enemyManager = new EnemyManager(this.spriteSheet);
+        this.enemyManager = new EnemyManager(this.spriteSheet, this.getLRUCamera);
 
 
     }
@@ -121,19 +132,19 @@ class MyGame extends engine.Scene {
             this.dye.draw(this.mCameraPlayer);
             this.enemyManager.draw(this.mCameraPlayer);
         }
-        if(this.mCD1Active){
+        if(this.activeCameras[0]){
             this.mCameraDye1.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye1);
             this.dye.draw(this.mCameraDye1);
             this.enemyManager.draw(this.mCameraDye1);
         }
-        if(this.mCD2Active){
+        if(this.activeCameras[1]){
             this.mCameraDye2.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye2);
             this.dye.draw(this.mCameraDye2);
             this.enemyManager.draw(this.mCameraDye2);
         }
-        if(this.mCD3Active){
+        if(this.activeCameras[2]){
             this.mCameraDye3.setViewAndCameraMatrix();
             this.background.draw(this.mCameraDye3);
             this.dye.draw(this.mCameraDye3);
@@ -147,28 +158,56 @@ class MyGame extends engine.Scene {
         this.dye.update(this.mCamera);
         this.enemyManager.update(this.dye);
 
+
+
         this.mCameraPlayer.panTo(this.dye.getXform().getXPos(), this.dye.getXform().getYPos());
         //console.log(this.dye.getXform().getRotationInRad());
         this.mCameraPlayer.update();
+
+        //camera stuff
+        for(let i = 0; i < 3; i++)
+        {
+            console.log(this.activeCameras[i]);
+            if(this.activeCameras[i])
+            {
+                this.activeCameraTimes[i]++;
+                console.log(this.activeCameraTimes[i]);
+                if(this.activeCameraTimes[i] >= 320)
+                {
+                    this.activeCameraTimes = 0;
+                    this.activeCameras[i] = false;
+                }
+            }   
+        }
+        
 
         if(engine.input.isKeyClicked(engine.input.keys.Zero)){
             this.mCPActive = !this.mCPActive;
             console.log(this.mCPActive);
         }
         if(engine.input.isKeyClicked(engine.input.keys.One)){
-            this.mCD1Active = !this.mCD1Active;
-            console.log(this.mCD1Active);
+            this.activeCameras[0] = !this.activeCameras[0];
+            //console.log(this.mCD1Active);
         }
         if(engine.input.isKeyClicked(engine.input.keys.Two)){
-            this.mCD2Active = !this.mCD2Active;
-            console.log(this.mCD2Active);
+            this.activeCameras[1] = !this.activeCameras[1];
+            //console.log(this.mCD2Active);
         }
         if(engine.input.isKeyClicked(engine.input.keys.Three)){
-            this.mCD3Active = !this.mCD3Active;
-            console.log(this.mCD3Active);
+            this.activeCameras[2] = !this.activeCameras[2];
+            //console.log(this.mCD3Active);
         }
 
         
+    }
+
+    activateLRUCamera(xPos, yPos)
+    {
+        let lruCamera = this.getLRUCamera();
+        //let lruCameraActive = this.getLRUCameraActive();
+        //lruCameraActive = true;
+        lruCamera.panTo(xPos, yPos);
+        this.activeCameras[this.getLRUCameraIndex()] = true;
     }
 
     getLRUCamera()
@@ -176,6 +215,21 @@ class MyGame extends engine.Scene {
         let lruCamera = this.cameraQueue.shift();
         this.cameraQueue.push(lruCamera);
         return lruCamera;
+    }
+
+    //unused
+    getLRUCameraActive()
+    {
+        let lruCameraActive = this.cameraActiveQueue.shift();
+        this.cameraActiveQueue.push(lruCameraActive);
+        return lruCameraActive;
+    }
+
+    getLRUCameraIndex()
+    {
+        let lruCameraIndex = this.cameraIndexQueue.shift();
+        this.lruCameraIndex.push(lruCameraIndex);
+        return lruCameraIndex;
     }
 }
 
