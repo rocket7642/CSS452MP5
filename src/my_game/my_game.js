@@ -187,9 +187,7 @@ class MyGame extends engine.Scene {
       for (let i = 0; i < this.dye.shotSet.size(); i++) {
         for (let j = 0; j < this.enemyManager.getEnemyCount(); j++) {
           if (
-            this.dye
-              .getShotSetAtIndex(i)
-              .pixelTouches(this.enemyManager.getEnemy(j), l)
+            this.dye.getObject(i).pixelTouches(this.enemyManager.getEnemy(j), l)
           ) {
             console.log("Collide");
           }

@@ -48,8 +48,6 @@ class EnemyManager {
   }
 
   getEnemy(index) {
-    console.log("Returning enemy at index: " + this.enemySet);
-    console.log(this.enemySet[index].getHead());
     return this.enemySet[index].getHead();
   }
 

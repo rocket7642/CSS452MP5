@@ -88,11 +88,11 @@ class Hero extends engine.GameObject {
   }
 
   destroyShots() {
-    // for (let i = 0; i < this.shotSet.size(); i++) {
-    //   if (this.shotSet.getObjectAt(i).isDestroyable()) {
-    //     this.shotSet.removeFromSet(this.shotSet.getObjectAt(i));
-    //   }
-    // }
+    for (let i = 0; i < this.shotSet.size(); i++) {
+      if (this.shotSet.getObjectAt(i).isDestroyable()) {
+        this.shotSet.removeFromSet(this.shotSet.getObjectAt(i));
+      }
+    }
   }
 
   getSetSize() {
@@ -100,10 +100,6 @@ class Hero extends engine.GameObject {
   }
   getObject(val) {
     return this.shotSet.getObjectAt(val);
-  }
-
-  getShotSetAtIndex(index) {
-    return this.shotSet.getObjectAt(index);
   }
   getBounds() {
     return this.box;
